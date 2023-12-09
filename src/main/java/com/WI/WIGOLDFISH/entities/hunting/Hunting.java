@@ -1,5 +1,8 @@
-package com.WI.WIGOLDFISH.entities;
+package com.WI.WIGOLDFISH.entities.hunting;
 
+import com.WI.WIGOLDFISH.entities.competition.Competition;
+import com.WI.WIGOLDFISH.entities.fish.Fish;
+import com.WI.WIGOLDFISH.entities.member.Member;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;

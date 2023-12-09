@@ -1,5 +1,7 @@
-package com.WI.WIGOLDFISH.entities;
+package com.WI.WIGOLDFISH.entities.member;
 
+import com.WI.WIGOLDFISH.entities.hunting.Hunting;
+import com.WI.WIGOLDFISH.entities.ranking.Ranking;
 import com.WI.WIGOLDFISH.enums.IndentityDocumentType;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

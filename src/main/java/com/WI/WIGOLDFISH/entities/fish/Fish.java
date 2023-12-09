@@ -1,5 +1,7 @@
-package com.WI.WIGOLDFISH.entities;
+package com.WI.WIGOLDFISH.entities.fish;
 
+import com.WI.WIGOLDFISH.entities.hunting.Hunting;
+import com.WI.WIGOLDFISH.entities.level.Level;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;

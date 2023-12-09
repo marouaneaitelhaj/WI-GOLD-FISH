@@ -1,16 +1,9 @@
-package com.WI.WIGOLDFISH.dto.fish;
+package com.WI.WIGOLDFISH.entities.fish;
 
-import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.util.List;
-
-import com.WI.WIGOLDFISH.dto.level.LevelDtoRes;
-import com.WI.WIGOLDFISH.entities.Fish;
-import com.WI.WIGOLDFISH.entities.Level;
 
 @Data
 @AllArgsConstructor

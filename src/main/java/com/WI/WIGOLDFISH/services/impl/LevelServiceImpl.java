@@ -1,7 +1,7 @@
 package com.WI.WIGOLDFISH.services.impl;
 
-import com.WI.WIGOLDFISH.dto.level.LevelDtoReq;
-import com.WI.WIGOLDFISH.dto.level.LevelDtoRes;
+import com.WI.WIGOLDFISH.entities.level.LevelDtoReq;
+import com.WI.WIGOLDFISH.entities.level.LevelDtoRes;
 import com.WI.WIGOLDFISH.services.interfaces.LevelService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

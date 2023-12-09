@@ -1,7 +1,7 @@
 package com.WI.WIGOLDFISH.services.impl;
 
-import com.WI.WIGOLDFISH.dto.competition.CompetitionDtoReq;
-import com.WI.WIGOLDFISH.dto.competition.CompetitionDtoRes;
+import com.WI.WIGOLDFISH.entities.competition.CompetitionDtoReq;
+import com.WI.WIGOLDFISH.entities.competition.CompetitionDtoRes;
 import com.WI.WIGOLDFISH.services.interfaces.CompetitionService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

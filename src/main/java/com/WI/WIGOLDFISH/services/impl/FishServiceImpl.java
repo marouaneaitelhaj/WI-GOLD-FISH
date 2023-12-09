@@ -1,7 +1,7 @@
 package com.WI.WIGOLDFISH.services.impl;
 
-import com.WI.WIGOLDFISH.dto.fish.FishDtoReq;
-import com.WI.WIGOLDFISH.dto.fish.FishDtoRes;
+import com.WI.WIGOLDFISH.entities.fish.FishDtoReq;
+import com.WI.WIGOLDFISH.entities.fish.FishDtoRes;
 import com.WI.WIGOLDFISH.services.interfaces.FishService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

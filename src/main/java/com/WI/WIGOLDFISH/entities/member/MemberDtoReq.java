@@ -1,14 +1,12 @@
-package com.WI.WIGOLDFISH.dto.member;
+package com.WI.WIGOLDFISH.entities.member;
 
 import com.WI.WIGOLDFISH.enums.IndentityDocumentType;
-import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
-import java.util.List;
 
 @Data
 @AllArgsConstructor

@@ -1,5 +1,6 @@
-package com.WI.WIGOLDFISH.entities;
+package com.WI.WIGOLDFISH.entities.level;
 
+import com.WI.WIGOLDFISH.entities.fish.Fish;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;

@@ -1,9 +1,8 @@
-package com.WI.WIGOLDFISH.dto.fish;
+package com.WI.WIGOLDFISH.entities.fish;
 
-import com.WI.WIGOLDFISH.dto.hunting.HuntingDtoReq;
-import com.WI.WIGOLDFISH.dto.level.LevelDtoReq;
+import com.WI.WIGOLDFISH.entities.hunting.HuntingDtoReq;
+import com.WI.WIGOLDFISH.entities.level.LevelDtoReq;
 
-import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

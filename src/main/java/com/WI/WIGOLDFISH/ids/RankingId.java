@@ -1,11 +1,9 @@
 package com.WI.WIGOLDFISH.ids;
 
-import com.WI.WIGOLDFISH.entities.Competition;
-import com.WI.WIGOLDFISH.entities.Member;
+import com.WI.WIGOLDFISH.entities.competition.Competition;
+import com.WI.WIGOLDFISH.entities.member.Member;
 import jakarta.persistence.Embeddable;
-import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.MapsId;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

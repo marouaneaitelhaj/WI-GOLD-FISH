@@ -1,9 +1,8 @@
-package com.WI.WIGOLDFISH.dto.member;
+package com.WI.WIGOLDFISH.entities.member;
 
-import com.WI.WIGOLDFISH.dto.hunting.HuntingDtoReq;
-import com.WI.WIGOLDFISH.dto.ranking.RankingDtoReq;
+import com.WI.WIGOLDFISH.entities.hunting.HuntingDtoReq;
+import com.WI.WIGOLDFISH.entities.ranking.RankingDtoReq;
 import com.WI.WIGOLDFISH.enums.IndentityDocumentType;
-import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

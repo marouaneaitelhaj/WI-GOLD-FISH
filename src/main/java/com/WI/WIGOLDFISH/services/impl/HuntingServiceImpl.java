@@ -1,7 +1,7 @@
 package com.WI.WIGOLDFISH.services.impl;
 
-import com.WI.WIGOLDFISH.dto.hunting.HuntingDtoReq;
-import com.WI.WIGOLDFISH.dto.hunting.HuntingDtoRes;
+import com.WI.WIGOLDFISH.entities.hunting.HuntingDtoReq;
+import com.WI.WIGOLDFISH.entities.hunting.HuntingDtoRes;
 import com.WI.WIGOLDFISH.services.interfaces.HuntingService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

@@ -1,13 +1,9 @@
-package com.WI.WIGOLDFISH.dto.hunting;
+package com.WI.WIGOLDFISH.entities.hunting;
 
-import com.WI.WIGOLDFISH.dto.competition.CompetitionDtoReq;
-import com.WI.WIGOLDFISH.dto.fish.FishDtoReq;
-import com.WI.WIGOLDFISH.dto.member.MemberDtoReq;
+import com.WI.WIGOLDFISH.entities.competition.CompetitionDtoReq;
+import com.WI.WIGOLDFISH.entities.fish.FishDtoReq;
+import com.WI.WIGOLDFISH.entities.member.MemberDtoReq;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

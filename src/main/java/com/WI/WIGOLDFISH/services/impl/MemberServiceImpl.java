@@ -1,7 +1,7 @@
 package com.WI.WIGOLDFISH.services.impl;
 
-import com.WI.WIGOLDFISH.dto.member.MemberDtoReq;
-import com.WI.WIGOLDFISH.dto.member.MemberDtoRes;
+import com.WI.WIGOLDFISH.entities.member.MemberDtoReq;
+import com.WI.WIGOLDFISH.entities.member.MemberDtoRes;
 import com.WI.WIGOLDFISH.services.interfaces.MemberService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

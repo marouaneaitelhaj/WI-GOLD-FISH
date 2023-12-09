@@ -1,5 +1,7 @@
-package com.WI.WIGOLDFISH.entities;
+package com.WI.WIGOLDFISH.entities.ranking;
 
+import com.WI.WIGOLDFISH.entities.competition.Competition;
+import com.WI.WIGOLDFISH.entities.member.Member;
 import com.WI.WIGOLDFISH.ids.RankingId;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
