@@ -1,4 +1,4 @@
-package com.WI.WIGOLDFISH.entities;
+package com.WI.WIGOLDFISH.dto.member;
 
 import com.WI.WIGOLDFISH.enums.IndentityDocumentType;
 import jakarta.persistence.*;
@@ -25,7 +25,7 @@ public class    Member {
     private IndentityDocumentType indentityDocumentType;
     private String indentityNumber;
     @OneToMany(mappedBy = "member")
-    private List<Ranking> rankings;
+    private List<RankingDtoReq> rankings;
     @OneToMany(mappedBy = "member")
     private List<Hunting> huntings;
 }

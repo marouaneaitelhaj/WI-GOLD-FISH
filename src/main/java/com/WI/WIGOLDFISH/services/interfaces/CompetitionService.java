@@ -1,2 +1,4 @@
-package com.WI.WIGOLDFISH.services;public interface Competition {
+package com.WI.WIGOLDFISH.services.interfaces;
+
+public interface CompetitionService {
 }

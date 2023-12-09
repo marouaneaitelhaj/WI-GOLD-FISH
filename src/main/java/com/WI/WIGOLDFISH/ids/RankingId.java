@@ -1,18 +1,38 @@
-package com.WI.WIGOLDFISH.IDs;
+package com.WI.WIGOLDFISH.ids;
 
-import com.WI.WIGOLDFISH.ENTITIES.Competition;
-import com.WI.WIGOLDFISH.ENTITIES.Member;
+import com.WI.WIGOLDFISH.entities.Competition;
+import com.WI.WIGOLDFISH.entities.Member;
 import jakarta.persistence.Embeddable;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.MapsId;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
+import java.util.Objects;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Embeddable
 public class RankingId implements Serializable {
-    private int member_id;
-    private String competition_id;
+    @ManyToOne
+    private Member member;
+    @ManyToOne
+    private Competition competition;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        RankingId rankingId = (RankingId) o;
+        return Objects.equals(member, rankingId.member) && Objects.equals(competition, rankingId.competition);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(member, competition);
+    }
 }

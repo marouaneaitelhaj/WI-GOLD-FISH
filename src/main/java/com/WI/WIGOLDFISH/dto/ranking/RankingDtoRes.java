@@ -1,4 +1,4 @@
-package com.WI.WIGOLDFISH.entities;
+package com.WI.WIGOLDFISH.dto.ranking;
 
 import com.WI.WIGOLDFISH.ids.RankingId;
 import jakarta.persistence.EmbeddedId;
@@ -23,5 +23,5 @@ public class  Ranking {
     private Member member;
     @ManyToOne
     @MapsId("competition")
-    private Competition competition;
+    private CompetitionDtoReq competition;
 }

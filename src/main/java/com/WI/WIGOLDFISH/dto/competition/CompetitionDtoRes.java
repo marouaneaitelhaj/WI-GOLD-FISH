@@ -1,4 +1,4 @@
-package com.WI.WIGOLDFISH.entities;
+package com.WI.WIGOLDFISH.dto.competition;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -13,9 +13,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity
-@Table(name = "competition")
-public class Competition {
+public class CompetitionDtoRes {
     @Id
     private String code;
     private LocalDate date;
@@ -25,7 +23,7 @@ public class Competition {
     private String location;
     private Double amount;
     @OneToMany(mappedBy = "competition", fetch = FetchType.LAZY)
-    private List<Ranking> ranking;
+    private List<RankingDtoReq> ranking;
     @OneToMany(mappedBy = "competition", fetch = FetchType.LAZY)
-    private List<Hunting> huntings;
+    private List<HuntingDtoReq> huntings;
 }

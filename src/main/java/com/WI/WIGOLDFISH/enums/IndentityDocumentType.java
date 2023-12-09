@@ -1,4 +1,4 @@
-package com.WI.WIGOLDFISH.ENUMS;
+package com.WI.WIGOLDFISH.enums;
 
 public enum IndentityDocumentType {
     CIN,

@@ -1,4 +1,4 @@
-package com.WI.WIGOLDFISH.entities;
+package com.WI.WIGOLDFISH.dto.hunting;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -12,15 +12,15 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class Hunting {
+public class HuntingDtoReq {
     @Id
     @GeneratedValue(strategy = jakarta.persistence.GenerationType.IDENTITY)
     private  Long id;
     private int numberOfFish;
     @ManyToOne
-    private Fish fish;
+    private FishDtoRes fish;
     @ManyToOne
-    private Member member;
+    private MemberDtoReq member;
     @ManyToOne
-    private Competition competition;
+    private CompetitionDtoReq competition;
 }

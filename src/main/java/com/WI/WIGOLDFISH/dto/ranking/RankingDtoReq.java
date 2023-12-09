@@ -1,4 +1,4 @@
-package com.WI.WIGOLDFISH.entities;
+package com.WI.WIGOLDFISH.dto.ranking;
 
 import com.WI.WIGOLDFISH.ids.RankingId;
 import jakarta.persistence.EmbeddedId;
@@ -13,15 +13,15 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class  Ranking {
+public class  RankingDtoReq {
     @EmbeddedId
     private RankingId rankingId;
     private  int rank;
     private int score;
     @ManyToOne
     @MapsId("member")
-    private Member member;
+    private MemberDtoReq member;
     @ManyToOne
     @MapsId("competition")
-    private Competition competition;
+    private CompetitionDtoReq competition;
 }

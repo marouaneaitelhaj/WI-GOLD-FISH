@@ -1,4 +1,4 @@
-package com.WI.WIGOLDFISH.entities;
+package com.WI.WIGOLDFISH.dto.hunting;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -20,7 +20,7 @@ public class Hunting {
     @ManyToOne
     private Fish fish;
     @ManyToOne
-    private Member member;
+    private MemberDtoReq member;
     @ManyToOne
-    private Competition competition;
+    private CompetitionDtoReq competition;
 }
