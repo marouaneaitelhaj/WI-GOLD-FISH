@@ -16,7 +16,6 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CompetitionDtoReq {
-    @Id
     private String code;
     private LocalDate date;
     private LocalDateTime startTime;
@@ -24,6 +23,4 @@ public class CompetitionDtoReq {
     private int numberOfParticipants;
     private String location;
     private Double amount;
-    private List<RankingDtoReq> ranking;
-    private List<HuntingDtoReq> huntings;
 }

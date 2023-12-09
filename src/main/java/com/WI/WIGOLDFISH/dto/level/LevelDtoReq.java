@@ -14,12 +14,8 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class Level {
-    @Id
-    @GeneratedValue(strategy = jakarta.persistence.GenerationType.IDENTITY)
+public class LevelDtoReq {
     private  Long code;
     private String description;
     private int points;
-    @OneToMany(mappedBy = "level")
-    private List<Fish> fishList;
 }

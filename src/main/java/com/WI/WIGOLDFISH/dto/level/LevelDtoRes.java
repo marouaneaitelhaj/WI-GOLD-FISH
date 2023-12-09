@@ -10,16 +10,14 @@ import lombok.NoArgsConstructor;
 
 import java.util.List;
 
+import com.WI.WIGOLDFISH.dto.fish.FishDtoReq;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity
 public class LevelDtoRes {
-    @Id
-    @GeneratedValue(strategy = jakarta.persistence.GenerationType.IDENTITY)
     private  Long code;
     private String description;
     private int points;
-    @OneToMany(mappedBy = "level")
-    private List<FishDtoRes> fishList;
+    private List<FishDtoReq> fishList;
 }

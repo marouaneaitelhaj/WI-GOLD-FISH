@@ -1,5 +1,7 @@
 package com.WI.WIGOLDFISH.dto.member;
 
+import com.WI.WIGOLDFISH.dto.hunting.HuntingDtoReq;
+import com.WI.WIGOLDFISH.dto.ranking.RankingDtoReq;
 import com.WI.WIGOLDFISH.enums.IndentityDocumentType;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -12,11 +14,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity
-@Table(name = "member")
-public class    Member {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class MemberDtoRes {
     private Long num;
     private String name;
     private String familyName;
@@ -24,8 +22,6 @@ public class    Member {
     private String nationality;
     private IndentityDocumentType indentityDocumentType;
     private String indentityNumber;
-    @OneToMany(mappedBy = "member")
     private List<RankingDtoReq> rankings;
-    @OneToMany(mappedBy = "member")
-    private List<Hunting> huntings;
+    private List<HuntingDtoReq> huntings;
 }

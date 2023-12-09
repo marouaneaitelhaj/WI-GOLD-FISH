@@ -12,11 +12,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity
-@Table(name = "member")
 public class    MemberDtoReq {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long num;
     private String name;
     private String familyName;
@@ -24,8 +20,4 @@ public class    MemberDtoReq {
     private String nationality;
     private IndentityDocumentType indentityDocumentType;
     private String indentityNumber;
-    @OneToMany(mappedBy = "member")
-    private List<RankingDtoReq> rankings;
-    @OneToMany(mappedBy = "member")
-    private List<HuntingDtoReq> huntings;
 }

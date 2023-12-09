@@ -1,5 +1,8 @@
 package com.WI.WIGOLDFISH.dto.fish;
 
+import com.WI.WIGOLDFISH.dto.hunting.HuntingDtoReq;
+import com.WI.WIGOLDFISH.dto.level.LevelDtoReq;
+
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -12,11 +15,8 @@ import java.util.List;
 @NoArgsConstructor
 @Entity
 public class FishDtoRes {
-    @Id
     private  String  name;
     private double averageWeight;
-    @ManyToOne
-    private LevelDtoRes level;
-    @OneToMany(mappedBy = "fish", fetch = FetchType.LAZY)
+    private LevelDtoReq level;
     private List<HuntingDtoReq> huntingList;
 }

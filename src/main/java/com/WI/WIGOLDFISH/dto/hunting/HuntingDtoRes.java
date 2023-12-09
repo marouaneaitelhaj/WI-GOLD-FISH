@@ -1,5 +1,9 @@
 package com.WI.WIGOLDFISH.dto.hunting;
 
+import com.WI.WIGOLDFISH.dto.competition.CompetitionDtoReq;
+import com.WI.WIGOLDFISH.dto.fish.FishDtoReq;
+import com.WI.WIGOLDFISH.dto.member.MemberDtoReq;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -12,15 +16,10 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class Hunting {
-    @Id
-    @GeneratedValue(strategy = jakarta.persistence.GenerationType.IDENTITY)
+public class HuntingDtoRes {
     private  Long id;
     private int numberOfFish;
-    @ManyToOne
-    private Fish fish;
-    @ManyToOne
+    private FishDtoReq fish;
     private MemberDtoReq member;
-    @ManyToOne
     private CompetitionDtoReq competition;
 }

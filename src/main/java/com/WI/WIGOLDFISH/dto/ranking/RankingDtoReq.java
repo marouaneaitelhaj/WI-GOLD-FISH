@@ -12,16 +12,10 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity
 public class  RankingDtoReq {
-    @EmbeddedId
     private RankingId rankingId;
     private  int rank;
     private int score;
-    @ManyToOne
-    @MapsId("member")
-    private MemberDtoReq member;
-    @ManyToOne
-    @MapsId("competition")
-    private CompetitionDtoReq competition;
+    private Long member_id;
+    private String competition_id;
 }

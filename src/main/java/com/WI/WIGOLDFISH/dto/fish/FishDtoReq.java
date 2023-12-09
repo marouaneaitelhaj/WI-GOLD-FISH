@@ -7,16 +7,14 @@ import lombok.NoArgsConstructor;
 
 import java.util.List;
 
+import com.WI.WIGOLDFISH.dto.level.LevelDtoRes;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
 public class FishDtoReq {
-    @Id
     private  String  name;
     private double averageWeight;
-    @ManyToOne
-    private LevelDtoRes level;
-    @OneToMany(mappedBy = "fish", fetch = FetchType.LAZY)
-    private List<HuntingDtoReq> huntingList;
+    private Long level_id;
 }

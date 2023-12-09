@@ -9,12 +9,14 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import com.WI.WIGOLDFISH.dto.hunting.HuntingDtoReq;
+import com.WI.WIGOLDFISH.dto.ranking.RankingDtoReq;
+
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class CompetitionDtoRes {
-    @Id
     private String code;
     private LocalDate date;
     private LocalDateTime startTime;
@@ -22,8 +24,6 @@ public class CompetitionDtoRes {
     private int numberOfParticipants;
     private String location;
     private Double amount;
-    @OneToMany(mappedBy = "competition", fetch = FetchType.LAZY)
     private List<RankingDtoReq> ranking;
-    @OneToMany(mappedBy = "competition", fetch = FetchType.LAZY)
     private List<HuntingDtoReq> huntings;
 }
