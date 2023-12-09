@@ -30,4 +30,7 @@ public class Competition {
     private List<Ranking> ranking;
     @OneToMany(mappedBy = "competition", fetch = FetchType.LAZY)
     private List<Hunting> huntings;
+    public Competition(String code) {
+        this.code = code;
+    }
 }

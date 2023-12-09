@@ -30,4 +30,7 @@ public class    Member {
     private List<Ranking> rankings;
     @OneToMany(mappedBy = "member")
     private List<Hunting> huntings;
+    public Member(Long num) {
+        this.num = num;
+    }
 }

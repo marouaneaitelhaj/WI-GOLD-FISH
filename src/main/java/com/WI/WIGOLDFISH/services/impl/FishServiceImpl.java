@@ -14,6 +14,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import java.util.List;
+import com.WI.WIGOLDFISH.entities.level.Level;
 
 public class FishServiceImpl implements FishService {
     @Autowired
@@ -26,6 +27,7 @@ public class FishServiceImpl implements FishService {
     public FishDtoReq save(FishDtoReq dtoMini) {
         levelRepository.findById(dtoMini.getLevel_id()).orElseThrow(() -> new ResourceNotFound("Level not found"));
         Fish fish = modelMapper.map(dtoMini, Fish.class);
+        fish.setLevel(new Level(dtoMini.getLevel_id()));
         fish = fishRepository.save(fish);
         return modelMapper.map(fish, FishDtoReq.class);
     }
@@ -36,6 +38,7 @@ public class FishServiceImpl implements FishService {
         levelRepository.findById(dtoMini.getLevel_id()).orElseThrow(() -> new ResourceNotFound("Level not found"));
         Fish fish = modelMapper.map(dtoMini, Fish.class);
         fish.setName(s);
+        fish.setLevel(new Level(dtoMini.getLevel_id()));
         fish = fishRepository.save(fish);
         return modelMapper.map(fish, FishDtoReq.class);
     }

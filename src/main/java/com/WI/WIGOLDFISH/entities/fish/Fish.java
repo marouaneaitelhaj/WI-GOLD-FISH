@@ -21,4 +21,7 @@ public class Fish {
     private Level level;
     @OneToMany(mappedBy = "fish", fetch = FetchType.LAZY)
     private List<Hunting> huntingList;
+    public Fish(String name) {
+        this.name = name;
+    }
 }
