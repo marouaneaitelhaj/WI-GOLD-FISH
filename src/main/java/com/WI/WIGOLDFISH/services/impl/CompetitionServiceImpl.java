@@ -6,6 +6,8 @@ import com.WI.WIGOLDFISH.services.interfaces.CompetitionService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.util.List;
+
 public class CompetitionServiceImpl implements CompetitionService {
     @Override
     public CompetitionDtoReq save(CompetitionDtoReq dtoMini) {
@@ -24,6 +26,11 @@ public class CompetitionServiceImpl implements CompetitionService {
 
     @Override
     public CompetitionDtoRes findOne(String s) {
+        return null;
+    }
+
+    @Override
+    public List<CompetitionDtoRes> findAll() {
         return null;
     }
 

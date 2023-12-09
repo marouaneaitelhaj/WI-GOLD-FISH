@@ -6,6 +6,8 @@ import com.WI.WIGOLDFISH.services.interfaces.FishService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.util.List;
+
 public class FishServiceImpl implements FishService {
     @Override
     public FishDtoReq save(FishDtoReq dtoMini) {
@@ -28,7 +30,7 @@ public class FishServiceImpl implements FishService {
     }
 
     @Override
-    public Page<FishDtoRes> findAll(Pageable pageable) {
+    public List<FishDtoRes> findAll() {
         return null;
     }
 }

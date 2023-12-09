@@ -6,6 +6,8 @@ import com.WI.WIGOLDFISH.services.interfaces.HuntingService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.util.List;
+
 public class HuntingServiceImpl implements HuntingService {
     @Override
     public HuntingDtoReq save(HuntingDtoReq dtoMini) {
@@ -28,7 +30,7 @@ public class HuntingServiceImpl implements HuntingService {
     }
 
     @Override
-    public Page<HuntingDtoRes> findAll(Pageable pageable) {
+    public List<HuntingDtoRes> findAll() {
         return null;
     }
 }

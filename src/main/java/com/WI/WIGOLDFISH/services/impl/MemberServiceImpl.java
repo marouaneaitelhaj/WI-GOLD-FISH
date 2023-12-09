@@ -6,6 +6,8 @@ import com.WI.WIGOLDFISH.services.interfaces.MemberService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.util.List;
+
 public class MemberServiceImpl implements MemberService {
     @Override
     public MemberDtoReq save(MemberDtoReq dtoMini) {
@@ -28,7 +30,7 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public Page<MemberDtoRes> findAll(Pageable pageable) {
+    public List<MemberDtoRes> findAll() {
         return null;
     }
 }
