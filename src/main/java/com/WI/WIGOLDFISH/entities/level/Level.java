@@ -17,9 +17,13 @@ import java.util.List;
 public class Level {
     @Id
     @GeneratedValue(strategy = jakarta.persistence.GenerationType.IDENTITY)
-    private  Long code;
+    private Long code;
     private String description;
     private int points;
     @OneToMany(mappedBy = "level")
     private List<Fish> fishList;
+
+    public Level(Long code) {
+        this.code = code;
+    }
 }

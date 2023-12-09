@@ -9,11 +9,12 @@ import lombok.NoArgsConstructor;
 import java.util.List;
 
 import com.WI.WIGOLDFISH.dto.level.LevelDtoRes;
+import com.WI.WIGOLDFISH.entities.Fish;
+import com.WI.WIGOLDFISH.entities.Level;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-
 public class FishDtoReq {
      @NotNull private  String  name;
      @NotNull private double averageWeight;
