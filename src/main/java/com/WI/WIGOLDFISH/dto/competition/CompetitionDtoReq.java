@@ -2,6 +2,8 @@ package com.WI.WIGOLDFISH.dto.competition;
 
 import com.WI.WIGOLDFISH.dto.hunting.HuntingDtoReq;
 import com.WI.WIGOLDFISH.dto.ranking.RankingDtoReq;
+import com.WI.WIGOLDFISH.entities.Competition;
+
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.NotNull;
