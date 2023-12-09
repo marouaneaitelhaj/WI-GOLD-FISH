@@ -12,7 +12,7 @@ import com.WI.WIGOLDFISH.dto.level.LevelDtoRes;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity
+
 public class FishDtoReq {
     private  String  name;
     private double averageWeight;

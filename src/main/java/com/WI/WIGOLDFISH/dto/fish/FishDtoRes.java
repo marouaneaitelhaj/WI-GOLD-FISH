@@ -13,7 +13,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity
+
 public class FishDtoRes {
     private  String  name;
     private double averageWeight;

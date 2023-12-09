@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity
+
 public class HuntingDtoRes {
     private  Long id;
     private int numberOfFish;
