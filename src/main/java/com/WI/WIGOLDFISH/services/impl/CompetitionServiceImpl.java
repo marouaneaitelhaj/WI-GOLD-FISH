@@ -5,9 +5,10 @@ import com.WI.WIGOLDFISH.entities.competition.CompetitionDtoRes;
 import com.WI.WIGOLDFISH.services.interfaces.CompetitionService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
-
+@Service
 public class CompetitionServiceImpl implements CompetitionService {
     @Override
     public CompetitionDtoReq save(CompetitionDtoReq dtoMini) {
