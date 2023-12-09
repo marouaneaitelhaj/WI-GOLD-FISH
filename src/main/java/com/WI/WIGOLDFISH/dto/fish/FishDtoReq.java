@@ -1,6 +1,7 @@
 package com.WI.WIGOLDFISH.dto.fish;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,7 +15,7 @@ import com.WI.WIGOLDFISH.dto.level.LevelDtoRes;
 @NoArgsConstructor
 
 public class FishDtoReq {
-    private  String  name;
-    private double averageWeight;
-    private Long level_id;
+     @NotNull private  String  name;
+     @NotNull private double averageWeight;
+     @NotNull private Long level_id;
 }

@@ -5,6 +5,7 @@ import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.MapsId;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -13,9 +14,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class  RankingDtoReq {
-    private RankingId rankingId;
-    private  int rank;
-    private int score;
-    private Long member_id;
-    private String competition_id;
+    @NotNull private RankingId rankingId;
+    @NotNull private  int rank;
+    @NotNull private int score;
+    @NotNull private Long member_id;
+    @NotNull private String competition_id;
 }
