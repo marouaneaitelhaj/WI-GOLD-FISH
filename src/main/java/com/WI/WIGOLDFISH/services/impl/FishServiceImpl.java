@@ -8,6 +8,7 @@ import com.WI.WIGOLDFISH.repositories.FishRepository;
 import com.WI.WIGOLDFISH.repositories.LevelRepository;
 import com.WI.WIGOLDFISH.services.interfaces.FishService;
 
+import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -15,21 +16,26 @@ import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 import com.WI.WIGOLDFISH.entities.level.Level;
+import org.springframework.stereotype.Service;
 
+@Service
+@RequiredArgsConstructor
 public class FishServiceImpl implements FishService {
-    @Autowired
-    private FishRepository fishRepository;
-    @Autowired
-    private ModelMapper modelMapper;
-    @Autowired
-    private LevelRepository levelRepository;
+    private final FishRepository fishRepository;
+    private final ModelMapper modelMapper;
+    private final LevelRepository levelRepository;
     @Override
     public FishDtoReq save(FishDtoReq dtoMini) {
         levelRepository.findById(dtoMini.getLevel_id()).orElseThrow(() -> new ResourceNotFound("Level not found"));
+        fishRepository.findByName(dtoMini.getName()).ifPresent(fish -> {
+            throw new ResourceNotFound("Fish already exists");
+        });
         Fish fish = modelMapper.map(dtoMini, Fish.class);
         fish.setLevel(new Level(dtoMini.getLevel_id()));
         fish = fishRepository.save(fish);
-        return modelMapper.map(fish, FishDtoReq.class);
+        FishDtoReq fishDtoReq = modelMapper.map(fish, FishDtoReq.class);
+        fishDtoReq.setLevel_id(fish.getLevel().getCode());
+        return fishDtoReq;
     }
 
     @Override

@@ -2,12 +2,10 @@ package com.WI.WIGOLDFISH.controllers;
 
 import com.WI.WIGOLDFISH.entities.level.LevelDtoReq;
 import com.WI.WIGOLDFISH.services.impl.LevelServiceImpl;
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
+import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -15,12 +13,12 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/level")
+@RequiredArgsConstructor
 public class LevelController {
-    @Autowired
-    private LevelServiceImpl levelServiceImpl;
+    private final LevelServiceImpl levelServiceImpl;
 
     @PostMapping
-    public ResponseEntity<?> createLevel(@Validated @RequestBody LevelDtoReq levelDtoReq) {
+    public ResponseEntity<?> createLevel(@Valid @RequestBody LevelDtoReq levelDtoReq) {
         levelDtoReq = levelServiceImpl.save(levelDtoReq);
         Map<String, Object> response = new HashMap<>();
         response.put("data", levelDtoReq);
@@ -34,13 +32,13 @@ public class LevelController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<?> getLevel(@PathVariable Long s) {
-        return ResponseEntity.ok(levelServiceImpl.findOne(s));
+    public ResponseEntity<?> getLevel(@PathVariable Long id) {
+        return ResponseEntity.ok(levelServiceImpl.findOne(id));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> updateLevel(@PathVariable Long s, @Validated @RequestBody LevelDtoReq levelDtoReq) {
-        levelDtoReq = levelServiceImpl.update(levelDtoReq, s);
+    public ResponseEntity<?> updateLevel(@PathVariable Long id, @Valid @RequestBody LevelDtoReq levelDtoReq) {
+        levelDtoReq = levelServiceImpl.update(levelDtoReq, id);
         Map<String, Object> response = new HashMap<>();
         response.put("data", levelDtoReq);
         response.put("message", "Level updated successfully");
@@ -48,8 +46,8 @@ public class LevelController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteLevel(@PathVariable Long s) {
-        levelServiceImpl.delete(s);
+    public ResponseEntity<?> deleteLevel(@PathVariable Long id) {
+        levelServiceImpl.delete(id);
         Map<String, Object> response = new HashMap<>();
         response.put("message", "Level deleted successfully");
         return ResponseEntity.ok(response);

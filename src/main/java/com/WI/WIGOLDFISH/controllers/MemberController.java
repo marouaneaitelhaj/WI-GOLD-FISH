@@ -2,7 +2,9 @@ package com.WI.WIGOLDFISH.controllers;
 
 import com.WI.WIGOLDFISH.entities.member.MemberDtoReq;
 import com.WI.WIGOLDFISH.services.impl.MemberServiceImpl;
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
+import jakarta.validation.Valid;
+
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -15,12 +17,12 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/member")
+@RequiredArgsConstructor
 public class MemberController {
-    @Autowired
-    private MemberServiceImpl memberServiceImpl;
+    private final MemberServiceImpl memberServiceImpl;
 
     @PostMapping
-    public ResponseEntity<?> createMember(@Validated @RequestBody MemberDtoReq memberDtoReq) {
+    public ResponseEntity<?> createMember(@Valid @RequestBody MemberDtoReq memberDtoReq) {
         memberDtoReq = memberServiceImpl.save(memberDtoReq);
         Map<String, Object> response = new HashMap<>();
         response.put("data", memberDtoReq);
@@ -34,13 +36,13 @@ public class MemberController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<?> getMember(@PathVariable Long s) {
-        return ResponseEntity.ok(memberServiceImpl.findOne(s));
+    public ResponseEntity<?> getMember(@PathVariable Long id) {
+        return ResponseEntity.ok(memberServiceImpl.findOne(id));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> updateMember(@PathVariable Long s, @Validated @RequestBody MemberDtoReq memberDtoReq) {
-        memberDtoReq = memberServiceImpl.update(memberDtoReq, s);
+    public ResponseEntity<?> updateMember(@PathVariable Long id, @Valid @RequestBody MemberDtoReq memberDtoReq) {
+        memberDtoReq = memberServiceImpl.update(memberDtoReq, id);
         Map<String, Object> response = new HashMap<>();
         response.put("data", memberDtoReq);
         response.put("message", "Member updated successfully");
@@ -48,8 +50,8 @@ public class MemberController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteMember(@PathVariable Long s) {
-        memberServiceImpl.delete(s);
+    public ResponseEntity<?> deleteMember(@PathVariable Long id) {
+        memberServiceImpl.delete(id);
         Map<String, Object> response = new HashMap<>();
         response.put("message", "Member deleted successfully");
         return ResponseEntity.ok(response);

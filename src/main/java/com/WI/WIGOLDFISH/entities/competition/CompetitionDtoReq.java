@@ -6,7 +6,6 @@ import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
@@ -14,9 +13,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CompetitionDtoReq {
-    @NotNull
-    @Max(value = 10)
-    @Pattern(regexp = "[A-Z]{3}-[0-9]{2}-[0-9]{2}-[0-9]{2}")
+    @Pattern(regexp = "[a-z]{3}-[0-9]{2}-[0-9]{2}-[0-9]{2}")
     private String code;
     @NotNull
     private LocalDate date;
@@ -24,7 +21,7 @@ public class CompetitionDtoReq {
     private LocalDateTime startTime;
     @NotNull
     private LocalDateTime endTime;
-    @NotNull
+    @Max(100)
     private int numberOfParticipants;
     @NotNull
     private String location;

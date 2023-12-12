@@ -9,7 +9,10 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class FishDtoReq {
-     @NotNull private  String  name;
-     @NotNull private double averageWeight;
-     @NotNull private Long level_id;
+        @NotNull
+      private  String  name;
+        @NotNull
+      private double averageWeight;
+        @NotNull
+      private Long level_id;
 }

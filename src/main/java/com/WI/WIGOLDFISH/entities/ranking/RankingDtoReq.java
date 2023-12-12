@@ -10,9 +10,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class  RankingDtoReq {
-    @NotNull private RankingId rankingId;
-    @NotNull private  int rank;
-    @NotNull private int score;
-    @NotNull private Long member_id;
-    @NotNull private String competition_id;
+     private RankingId rankingId;
+     private  int rank;
+     private int score;
+     private Long member_id;
+     private String competition_id;
 }

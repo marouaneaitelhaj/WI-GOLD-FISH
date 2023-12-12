@@ -9,9 +9,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class HuntingDtoReq {
-    @NotNull private  Long id;
-    @NotNull private int numberOfFish;
-    @NotNull private String fish_id;
-    @NotNull private Long member_id;
-    @NotNull private String competition_id;
+     private  Long id;
+     private int numberOfFish;
+     private String fish_id;
+     private Long member_id;
+     private String competition_id;
 }

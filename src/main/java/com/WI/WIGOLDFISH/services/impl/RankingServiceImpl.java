@@ -16,22 +16,21 @@ import com.WI.WIGOLDFISH.services.interfaces.CompetitionService;
 import com.WI.WIGOLDFISH.services.interfaces.MemberService;
 import com.WI.WIGOLDFISH.services.interfaces.RankingService;
 
+import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
-
+@Service
+@RequiredArgsConstructor
 public class RankingServiceImpl implements RankingService {
-    @Autowired
-    private RankingRepository rankingRepository;
-    @Autowired
-    private CompetitionRepository competitionRepository;
-    @Autowired
-    private ModelMapper modelMapper;
-    @Autowired
-    private MemberRepository memberRepository;
+    private final RankingRepository rankingRepository;
+    private final CompetitionRepository competitionRepository;
+    private final ModelMapper modelMapper;
+    private final MemberRepository memberRepository;
 
     @Override
     public RankingDtoReq save(RankingDtoReq dtoMini) {

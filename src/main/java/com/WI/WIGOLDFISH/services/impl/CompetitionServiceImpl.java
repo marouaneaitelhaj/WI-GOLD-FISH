@@ -3,10 +3,12 @@ package com.WI.WIGOLDFISH.services.impl;
 import com.WI.WIGOLDFISH.entities.competition.Competition;
 import com.WI.WIGOLDFISH.entities.competition.CompetitionDtoReq;
 import com.WI.WIGOLDFISH.entities.competition.CompetitionDtoRes;
+import com.WI.WIGOLDFISH.exceptions.DuplicatedResource;
 import com.WI.WIGOLDFISH.exceptions.ResourceNotFound;
 import com.WI.WIGOLDFISH.repositories.CompetitionRepository;
 import com.WI.WIGOLDFISH.services.interfaces.CompetitionService;
 
+import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -16,15 +18,17 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class CompetitionServiceImpl implements CompetitionService {
-    @Autowired
-    private CompetitionRepository competitionRepository;
+    private final CompetitionRepository competitionRepository;
 
-    @Autowired
-    private ModelMapper modelMapper;
+    private final ModelMapper modelMapper;
 
     @Override
     public CompetitionDtoReq save(CompetitionDtoReq dtoMini) {
+        competitionRepository.findById(dtoMini.getCode()).ifPresent(competition -> {
+            throw new DuplicatedResource("Competition already exists");
+        });
         Competition competition = modelMapper.map(dtoMini, Competition.class);
         competition = competitionRepository.save(competition);
         return modelMapper.map(competition, CompetitionDtoReq.class);
@@ -63,6 +67,6 @@ public class CompetitionServiceImpl implements CompetitionService {
 
     @Override
     public Page<CompetitionDtoRes> findAll(Pageable pageable) {
-        return null;
+        return competitionRepository.findAll(pageable).map(competition -> modelMapper.map(competition, CompetitionDtoRes.class));
     }
 }

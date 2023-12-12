@@ -3,7 +3,9 @@ package com.WI.WIGOLDFISH.controllers;
 import com.WI.WIGOLDFISH.entities.ranking.RankingDtoReq;
 import com.WI.WIGOLDFISH.ids.RankingId;
 import com.WI.WIGOLDFISH.services.impl.RankingServiceImpl;
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
+import jakarta.validation.Valid;
+
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -16,12 +18,12 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/ranking")
+@RequiredArgsConstructor
 public class RankingController {
-    @Autowired
-    private RankingServiceImpl rankingServiceImpl;
+    private final RankingServiceImpl rankingServiceImpl;
 
     @PostMapping
-    public ResponseEntity<?> createRanking(@Validated @RequestBody RankingDtoReq rankingDtoReq) {
+    public ResponseEntity<?> createRanking(@Valid @RequestBody RankingDtoReq rankingDtoReq) {
         rankingDtoReq = rankingServiceImpl.save(rankingDtoReq);
         Map<String, Object> response = new HashMap<>();
         response.put("data", rankingDtoReq);
@@ -40,7 +42,7 @@ public class RankingController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> updateRanking(@PathVariable RankingId s, @Validated @RequestBody RankingDtoReq rankingDtoReq) {
+    public ResponseEntity<?> updateRanking(@PathVariable RankingId s, @Valid @RequestBody RankingDtoReq rankingDtoReq) {
         rankingDtoReq = rankingServiceImpl.update(rankingDtoReq, s);
         Map<String, Object> response = new HashMap<>();
         response.put("data", rankingDtoReq);

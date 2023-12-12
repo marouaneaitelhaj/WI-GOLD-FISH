@@ -8,9 +8,11 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-
 public class LevelDtoReq {
-    @NotNull private  Long code;
-    @NotNull private String description;
-    @NotNull private int points;
+    @NotNull(message = "Code is required")
+    private Long code;
+    @NotNull(message = "Points is required")
+    private int points;
+    @NotNull(message = "Description is required")
+    private String description;
 }

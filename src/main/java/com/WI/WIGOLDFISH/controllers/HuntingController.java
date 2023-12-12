@@ -2,12 +2,11 @@ package com.WI.WIGOLDFISH.controllers;
 
 import com.WI.WIGOLDFISH.entities.hunting.HuntingDtoReq;
 import com.WI.WIGOLDFISH.services.impl.HuntingServiceImpl;
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
+import jakarta.validation.Valid;
+
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -15,12 +14,12 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/hunting")
+@RequiredArgsConstructor
 public class HuntingController {
-    @Autowired
-    private HuntingServiceImpl huntingServiceImpl;
+    private final HuntingServiceImpl huntingServiceImpl;
 
     @PostMapping
-    public ResponseEntity<?> createHunting(@Validated @RequestBody HuntingDtoReq huntingDtoReq) {
+    public ResponseEntity<?> createHunting(@Valid @RequestBody HuntingDtoReq huntingDtoReq) {
         huntingDtoReq = huntingServiceImpl.save(huntingDtoReq);
         Map<String, Object> response = new HashMap<>();
         response.put("data", huntingDtoReq);
@@ -39,7 +38,7 @@ public class HuntingController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> updateHunting(@PathVariable Long s, @Validated @RequestBody HuntingDtoReq huntingDtoReq) {
+    public ResponseEntity<?> updateHunting(@PathVariable Long s, @Valid @RequestBody HuntingDtoReq huntingDtoReq) {
         huntingDtoReq = huntingServiceImpl.update(huntingDtoReq, s);
         Map<String, Object> response = new HashMap<>();
         response.put("data", huntingDtoReq);

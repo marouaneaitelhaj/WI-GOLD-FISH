@@ -14,24 +14,23 @@ import com.WI.WIGOLDFISH.repositories.LevelRepository;
 import com.WI.WIGOLDFISH.repositories.MemberRepository;
 import com.WI.WIGOLDFISH.services.interfaces.HuntingService;
 
+import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
-
+@Service
+@RequiredArgsConstructor
 public class HuntingServiceImpl implements HuntingService {
-    @Autowired
-    private HuntingRepository huntingRepository;
+    private final HuntingRepository huntingRepository;
     @Autowired  
     private ModelMapper modelMapper;
-    @Autowired
-    private FishRepository fishRepository;
-    @Autowired
-    private MemberRepository memberRepository;
-    @Autowired
-    private CompetitionRepository competitionRepository;
+    private final FishRepository fishRepository;
+    private final MemberRepository memberRepository;
+    private final CompetitionRepository competitionRepository;
     @Override
     public HuntingDtoReq save(HuntingDtoReq dtoMini) {
         competitionRepository.findById(dtoMini.getCompetition_id()).orElseThrow(() -> new ResourceNotFound("Competition not found"));
