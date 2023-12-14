@@ -8,7 +8,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 
 
@@ -21,14 +21,14 @@ public class Competition {
     @Id
     private String code;
     private LocalDate date;
-    private LocalDateTime startTime;
-    private LocalDateTime endTime;
+    private LocalTime startTime;
+    private LocalTime endTime;
     private int numberOfParticipants;
     private String location;
     private Double amount;
-    @OneToMany(mappedBy = "competition", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "competition", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Ranking> ranking;
-    @OneToMany(mappedBy = "competition", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "competition", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Hunting> huntings;
     public Competition(String code) {
         this.code = code;

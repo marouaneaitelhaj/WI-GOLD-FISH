@@ -26,7 +26,7 @@ public class CompetitionServiceImpl implements CompetitionService {
 
     @Override
     public CompetitionDtoReq save(CompetitionDtoReq dtoMini) {
-        competitionRepository.findById(dtoMini.getCode()).ifPresent(competition -> {
+        competitionRepository.findByCode(dtoMini.getCode()).ifPresent(competition -> {
             throw new DuplicatedResource("Competition already exists");
         });
         Competition competition = modelMapper.map(dtoMini, Competition.class);

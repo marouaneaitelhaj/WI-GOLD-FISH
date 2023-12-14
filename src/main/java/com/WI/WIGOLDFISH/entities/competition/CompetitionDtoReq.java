@@ -8,6 +8,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 @Data
 @AllArgsConstructor
@@ -18,9 +19,9 @@ public class CompetitionDtoReq {
     @NotNull
     private LocalDate date;
     @NotNull
-    private LocalDateTime startTime;
+    private LocalTime startTime;
     @NotNull
-    private LocalDateTime endTime;
+    private LocalTime endTime;
     @Max(100)
     private int numberOfParticipants;
     @NotNull

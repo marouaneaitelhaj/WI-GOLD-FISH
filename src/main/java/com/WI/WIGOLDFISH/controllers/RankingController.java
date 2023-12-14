@@ -1,5 +1,7 @@
 package com.WI.WIGOLDFISH.controllers;
 
+import com.WI.WIGOLDFISH.entities.competition.Competition;
+import com.WI.WIGOLDFISH.entities.member.Member;
 import com.WI.WIGOLDFISH.entities.ranking.RankingDtoReq;
 import com.WI.WIGOLDFISH.ids.RankingId;
 import com.WI.WIGOLDFISH.services.impl.RankingServiceImpl;
@@ -36,8 +38,15 @@ public class RankingController {
         return ResponseEntity.ok(rankingServiceImpl.findAll());
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<?> getRanking(@PathVariable RankingId s) {
+    @GetMapping("/{member_id}/{competition_id}")
+    public ResponseEntity<?> getRanking(@PathVariable Long member_id, @PathVariable String competition_id) {
+        RankingId s = new RankingId();
+        Member m = new Member();
+        m.setNum(member_id);
+        Competition c = new Competition();
+        c.setCode(competition_id);
+        s.setMember(m);
+        s.setCompetition(c);
         return ResponseEntity.ok(rankingServiceImpl.findOne(s));
     }
 
@@ -50,8 +59,15 @@ public class RankingController {
         return ResponseEntity.ok(response);
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteRanking(@PathVariable RankingId s) {
+    @DeleteMapping("/{member_id}/{competition_id}")
+    public ResponseEntity<?> deleteRanking(@PathVariable Long member_id, @PathVariable String competition_id) {
+        RankingId s = new RankingId();
+        Member m = new Member();
+        m.setNum(member_id);
+        Competition c = new Competition();
+        c.setCode(competition_id);
+        s.setMember(m);
+        s.setCompetition(c);
         rankingServiceImpl.delete(s);
         Map<String, Object> response = new HashMap<>();
         response.put("message", "Ranking deleted successfully");

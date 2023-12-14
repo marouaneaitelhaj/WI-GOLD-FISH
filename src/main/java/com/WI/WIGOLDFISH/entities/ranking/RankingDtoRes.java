@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class RankingDtoRes {
-    private RankingId rankingId;
+    //private RankingIdDto rankingId;
     private int rank;
     private int score;
     private MemberDtoReq member;
