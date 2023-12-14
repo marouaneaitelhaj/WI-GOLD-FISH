@@ -47,8 +47,8 @@ public class HuntingController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteHunting(@PathVariable Long s) {
-        huntingServiceImpl.delete(s);
+    public ResponseEntity<?> deleteHunting(@PathVariable Long id) {
+        huntingServiceImpl.delete(id);
         Map<String, Object> response = new HashMap<>();
         response.put("message", "Hunting deleted successfully");
         return ResponseEntity.ok(response);
