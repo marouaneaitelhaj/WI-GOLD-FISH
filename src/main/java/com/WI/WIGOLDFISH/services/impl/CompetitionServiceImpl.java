@@ -3,18 +3,19 @@ package com.WI.WIGOLDFISH.services.impl;
 import com.WI.WIGOLDFISH.entities.competition.Competition;
 import com.WI.WIGOLDFISH.entities.competition.CompetitionDtoReq;
 import com.WI.WIGOLDFISH.entities.competition.CompetitionDtoRes;
+import com.WI.WIGOLDFISH.enums.FilterCompetition;
 import com.WI.WIGOLDFISH.exceptions.DuplicatedResource;
 import com.WI.WIGOLDFISH.exceptions.ResourceNotFound;
 import com.WI.WIGOLDFISH.repositories.CompetitionRepository;
 import com.WI.WIGOLDFISH.services.interfaces.CompetitionService;
-
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 
 @Service
@@ -66,7 +67,32 @@ public class CompetitionServiceImpl implements CompetitionService {
     }
 
     @Override
-    public Page<CompetitionDtoRes> findAll(Pageable pageable) {
-        return competitionRepository.findAll(pageable).map(competition -> modelMapper.map(competition, CompetitionDtoRes.class));
+    public Page<CompetitionDtoRes> findAll(Pageable pageable, FilterCompetition filterCompetition) {
+        LocalDate nowDate = LocalDate.now();
+        LocalTime nowTime = LocalTime.now();
+
+        switch (filterCompetition) {
+            case ALL:
+                return competitionRepository.findAll(pageable)
+                        .map(competition -> modelMapper.map(competition, CompetitionDtoRes.class));
+
+            case UPCOMING:
+                return competitionRepository.findAllByDateAfter(nowDate, pageable)
+                        .map(competition -> modelMapper.map(competition, CompetitionDtoRes.class));
+
+            case INPROGRESS:
+                return competitionRepository.findAllByDateAndStartTimeBeforeAndEndTimeAfter(
+                                nowDate, nowTime, nowTime, pageable)
+                        .map(competition -> modelMapper.map(competition, CompetitionDtoRes.class));
+
+            case FINISHED:
+                return competitionRepository.findAllByDateBefore(nowDate, pageable)
+                        .map(competition -> modelMapper.map(competition, CompetitionDtoRes.class));
+
+            default:
+                throw new IllegalArgumentException("Unsupported filter: " + filterCompetition);
+        }
     }
+
+
 }

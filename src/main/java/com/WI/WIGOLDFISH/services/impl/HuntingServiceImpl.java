@@ -7,10 +7,8 @@ import com.WI.WIGOLDFISH.entities.hunting.HuntingDtoReq;
 import com.WI.WIGOLDFISH.entities.hunting.HuntingDtoRes;
 import com.WI.WIGOLDFISH.entities.member.Member;
 import com.WI.WIGOLDFISH.exceptions.ResourceNotFound;
-import com.WI.WIGOLDFISH.repositories.CompetitionRepository;
-import com.WI.WIGOLDFISH.repositories.FishRepository;
-import com.WI.WIGOLDFISH.repositories.HuntingRepository;
-import com.WI.WIGOLDFISH.repositories.MemberRepository;
+import com.WI.WIGOLDFISH.ids.RankingId;
+import com.WI.WIGOLDFISH.repositories.*;
 import com.WI.WIGOLDFISH.services.interfaces.HuntingService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -29,6 +27,7 @@ public class HuntingServiceImpl implements HuntingService {
     private final FishRepository fishRepository;
     private final MemberRepository memberRepository;
     private final CompetitionRepository competitionRepository;
+    private  final RankingRepository rankingRepository;
     @Override
     public HuntingDtoReq save(HuntingDtoReq dtoMini) {
         Competition competition = competitionRepository.findById(dtoMini.getCompetition_id()).orElseThrow(() -> new ResourceNotFound("Competition not found"));
@@ -39,14 +38,36 @@ public class HuntingServiceImpl implements HuntingService {
             Hunting hunting = optionalHunting.get();
             hunting.setNumberOfFish(hunting.getNumberOfFish() + dtoMini.getNumberOfFish());
             hunting = huntingRepository.save(hunting);
-            return modelMapper.map(hunting, HuntingDtoReq.class);
+            HuntingDtoReq huntingDtoReq = modelMapper.map(hunting, HuntingDtoReq.class);
+            huntingDtoReq.setCompetition_id(hunting.getCompetition().getCode());
+            huntingDtoReq.setFish_id(hunting.getFish().getName());
+            huntingDtoReq.setMember_id(hunting.getMember().getNum());
+            RankingId rankingId = new RankingId();
+            rankingId.setCompetition(competition);
+            rankingId.setMember(member);
+            rankingRepository.findById(rankingId).ifPresent(ranking -> {;
+                ranking.setScore(ranking.getScore() +  (huntingDtoReq.getNumberOfFish() * fish.getLevel().getPoints()));
+                rankingRepository.save(ranking);
+            });
+            return huntingDtoReq;
         }
         Hunting hunting = modelMapper.map(dtoMini, Hunting.class);
         hunting.setCompetition(new Competition(dtoMini.getCompetition_id()));
         hunting.setFish(new Fish(dtoMini.getFish_id()));
         hunting.setMember(new Member(dtoMini.getMember_id()));
         hunting = huntingRepository.save(hunting);
-        return modelMapper.map(hunting, HuntingDtoReq.class);
+        HuntingDtoReq huntingDtoReq = modelMapper.map(hunting, HuntingDtoReq.class);
+        huntingDtoReq.setCompetition_id(hunting.getCompetition().getCode());
+        huntingDtoReq.setFish_id(hunting.getFish().getName());
+        huntingDtoReq.setMember_id(hunting.getMember().getNum());
+        RankingId rankingId = new RankingId();
+        rankingId.setCompetition(competition);
+        rankingId.setMember(member);
+        rankingRepository.findById(rankingId).ifPresent(ranking -> {;
+            ranking.setScore(ranking.getScore() +  (huntingDtoReq.getNumberOfFish() * fish.getLevel().getPoints()));
+            rankingRepository.save(ranking);
+        });
+        return huntingDtoReq;
     }
 
     @Override

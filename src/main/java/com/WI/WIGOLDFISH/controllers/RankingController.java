@@ -49,6 +49,10 @@ public class RankingController {
         s.setCompetition(c);
         return ResponseEntity.ok(rankingServiceImpl.findOne(s));
     }
+    @GetMapping("/competition/{competitionCode}")
+    public ResponseEntity<?> findAllByCompetition_CodeOrderByScoreDesc(@PathVariable String competitionCode) {
+        return ResponseEntity.ok(rankingServiceImpl.findAllByCompetition_CodeOrderByScoreDesc(competitionCode));
+    }
 
     @PutMapping("/{id}")
     public ResponseEntity<?> updateRanking(@PathVariable RankingId s, @Valid @RequestBody RankingDtoReq rankingDtoReq) {

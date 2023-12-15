@@ -1,6 +1,7 @@
 package com.WI.WIGOLDFISH.controllers;
 
 import com.WI.WIGOLDFISH.entities.competition.CompetitionDtoReq;
+import com.WI.WIGOLDFISH.enums.FilterCompetition;
 import com.WI.WIGOLDFISH.services.impl.CompetitionServiceImpl;
 
 import jakarta.validation.Valid;
@@ -29,9 +30,10 @@ public class CompetitionController {
     }
 
     @GetMapping
-    public ResponseEntity<?> getCompetitions(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
+    public ResponseEntity<?> getCompetitions(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size, @RequestParam(defaultValue = "all") String filter){
         Pageable pageable = PageRequest.of(page, size);
-        return ResponseEntity.ok(competitionServiceImpl.findAll(pageable));
+        FilterCompetition  filterCompetition = FilterCompetition.valueOf(filter.toUpperCase());
+        return ResponseEntity.ok(competitionServiceImpl.findAll(pageable, filterCompetition));
     }
 
     @GetMapping("/{id}")

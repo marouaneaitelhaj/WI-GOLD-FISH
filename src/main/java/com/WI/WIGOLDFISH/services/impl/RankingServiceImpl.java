@@ -83,4 +83,11 @@ public class RankingServiceImpl implements RankingService {
                 .map(ranking -> modelMapper.map(ranking, RankingDtoRes.class)).toList();
         return rankingDtoRes;
     }
+
+    @Override
+    public List<RankingDtoRes> findAllByCompetition_CodeOrderByScoreDesc(String competitionCode) {
+        List<RankingDtoRes> rankingDtoRes = rankingRepository.findAllByCompetition_CodeOrderByScoreDesc(competitionCode).stream()
+                .map(ranking -> modelMapper.map(ranking, RankingDtoRes.class)).toList();
+        return rankingDtoRes;
+    }
 }
