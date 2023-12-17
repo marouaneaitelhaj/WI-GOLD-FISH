@@ -16,6 +16,8 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.IntStream;
+
 @Service
 @RequiredArgsConstructor
 public class RankingServiceImpl implements RankingService {
@@ -86,8 +88,10 @@ public class RankingServiceImpl implements RankingService {
 
     @Override
     public List<RankingDtoRes> findAllByCompetition_CodeOrderByScoreDesc(String competitionCode) {
-        List<RankingDtoRes> rankingDtoRes = rankingRepository.findAllByCompetition_CodeOrderByScoreDesc(competitionCode).stream()
-                .map(ranking -> modelMapper.map(ranking, RankingDtoRes.class)).toList();
-        return rankingDtoRes;
+        List<Ranking> rankingDtoRes = rankingRepository.findAllByCompetition_CodeOrderByScoreDesc(competitionCode);
+        IntStream.range(1, rankingDtoRes.size()).forEach(value -> {
+            rankingDtoRes.get(value - 1).setRank(value);
+        });
+        return rankingRepository.saveAll(rankingDtoRes).stream().map(ranking -> modelMapper.map(ranking, RankingDtoRes.class)).toList();
     }
 }

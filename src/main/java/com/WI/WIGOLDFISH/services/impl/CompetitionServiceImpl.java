@@ -31,6 +31,9 @@ public class CompetitionServiceImpl implements CompetitionService {
             throw new DuplicatedResource("Competition already exists");
         });
         Competition competition = modelMapper.map(dtoMini, Competition.class);
+        competitionRepository.findByDate(competition.getDate()).ifPresent(competition1 -> {
+            throw new DuplicatedResource("We can not Two competition in one Day");
+        });
         competition = competitionRepository.save(competition);
         return modelMapper.map(competition, CompetitionDtoReq.class);
     }

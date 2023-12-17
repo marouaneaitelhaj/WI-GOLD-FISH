@@ -18,4 +18,5 @@ public interface CompetitionRepository extends JpaRepository<Competition, String
 
     Page<Competition> findAllByDateAndStartTimeBeforeAndEndTimeAfter(
             LocalDate date, LocalTime startTime, LocalTime endTime, Pageable pageable);
+    Optional<Competition> findByDate(LocalDate date);
 }

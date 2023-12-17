@@ -12,7 +12,6 @@ import com.WI.WIGOLDFISH.repositories.*;
 import com.WI.WIGOLDFISH.services.interfaces.HuntingService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -21,53 +20,67 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 public class HuntingServiceImpl implements HuntingService {
-    private final HuntingRepository huntingRepository;
-    @Autowired  
-    private ModelMapper modelMapper;
+    private final CompetitionRepository competitionRepository;
     private final FishRepository fishRepository;
     private final MemberRepository memberRepository;
-    private final CompetitionRepository competitionRepository;
+    private final ModelMapper modelMapper;
+    private final HuntingRepository huntingRepository;
     private  final RankingRepository rankingRepository;
+
     @Override
     public HuntingDtoReq save(HuntingDtoReq dtoMini) {
-        Competition competition = competitionRepository.findById(dtoMini.getCompetition_id()).orElseThrow(() -> new ResourceNotFound("Competition not found"));
-        Fish fish = fishRepository.findById(dtoMini.getFish_id()).orElseThrow(() -> new ResourceNotFound("Fish not found"));
-        Member member = memberRepository.findById(dtoMini.getMember_id()).orElseThrow(() -> new ResourceNotFound("Member not found"));
+        Competition competition = competitionRepository.findById(dtoMini.getCompetition_id())
+                .orElseThrow(() -> new ResourceNotFound("Competition not found"));
+        Fish fish = fishRepository.findById(dtoMini.getFish_id())
+                .orElseThrow(() -> new ResourceNotFound("Fish not found"));
+        Member member = memberRepository.findById(dtoMini.getMember_id())
+                .orElseThrow(() -> new ResourceNotFound("Member not found"));
         Optional<Hunting> optionalHunting = huntingRepository.findByMemberAndCompetitionAndFish(member, competition, fish);
-        if (optionalHunting.isPresent()) {
-            Hunting hunting = optionalHunting.get();
-            hunting.setNumberOfFish(hunting.getNumberOfFish() + dtoMini.getNumberOfFish());
-            hunting = huntingRepository.save(hunting);
-            HuntingDtoReq huntingDtoReq = modelMapper.map(hunting, HuntingDtoReq.class);
-            huntingDtoReq.setCompetition_id(hunting.getCompetition().getCode());
-            huntingDtoReq.setFish_id(hunting.getFish().getName());
-            huntingDtoReq.setMember_id(hunting.getMember().getNum());
-            RankingId rankingId = new RankingId();
-            rankingId.setCompetition(competition);
-            rankingId.setMember(member);
-            rankingRepository.findById(rankingId).ifPresent(ranking -> {;
-                ranking.setScore(ranking.getScore() +  (huntingDtoReq.getNumberOfFish() * fish.getLevel().getPoints()));
-                rankingRepository.save(ranking);
-            });
-            return huntingDtoReq;
-        }
+
+        return optionalHunting.map(hunting -> updateExistingHunting(hunting, dtoMini, competition, fish, member)).orElseGet(() -> createNewHunting(dtoMini, competition, fish, member));
+    }
+
+    private HuntingDtoReq updateExistingHunting(Hunting hunting, HuntingDtoReq dtoMini,
+                                                Competition competition, Fish fish, Member member) {
+        hunting.setNumberOfFish(hunting.getNumberOfFish() + dtoMini.getNumberOfFish());
+        hunting = huntingRepository.save(hunting);
+
+        HuntingDtoReq huntingDtoReq = modelMapper.map(hunting, HuntingDtoReq.class);
+        huntingDtoReq.setCompetition_id(competition.getCode());
+        huntingDtoReq.setFish_id(fish.getName());
+        huntingDtoReq.setMember_id(member.getNum());
+
+        updateRanking(huntingDtoReq, competition, fish, member);
+
+        return huntingDtoReq;
+    }
+
+    private HuntingDtoReq createNewHunting(HuntingDtoReq dtoMini, Competition competition,
+                                           Fish fish, Member member) {
         Hunting hunting = modelMapper.map(dtoMini, Hunting.class);
         hunting.setCompetition(new Competition(dtoMini.getCompetition_id()));
         hunting.setFish(new Fish(dtoMini.getFish_id()));
         hunting.setMember(new Member(dtoMini.getMember_id()));
         hunting = huntingRepository.save(hunting);
+
         HuntingDtoReq huntingDtoReq = modelMapper.map(hunting, HuntingDtoReq.class);
         huntingDtoReq.setCompetition_id(hunting.getCompetition().getCode());
         huntingDtoReq.setFish_id(hunting.getFish().getName());
         huntingDtoReq.setMember_id(hunting.getMember().getNum());
+
+        updateRanking(huntingDtoReq, competition, fish, member);
+
+        return huntingDtoReq;
+    }
+
+    private void updateRanking(HuntingDtoReq huntingDtoReq, Competition competition, Fish fish, Member member) {
         RankingId rankingId = new RankingId();
         rankingId.setCompetition(competition);
         rankingId.setMember(member);
-        rankingRepository.findById(rankingId).ifPresent(ranking -> {;
-            ranking.setScore(ranking.getScore() +  (huntingDtoReq.getNumberOfFish() * fish.getLevel().getPoints()));
+        rankingRepository.findById(rankingId).ifPresent(ranking -> {
+            ranking.setScore(ranking.getScore() + (huntingDtoReq.getNumberOfFish() * fish.getLevel().getPoints()));
             rankingRepository.save(ranking);
         });
-        return huntingDtoReq;
     }
 
     @Override
@@ -88,11 +101,7 @@ public class HuntingServiceImpl implements HuntingService {
     public Boolean delete(Long aLong) {
         huntingRepository.findById(aLong).orElseThrow(() -> new ResourceNotFound("Hunting not found"));
         huntingRepository.deleteById(aLong);
-        if (huntingRepository.findById(aLong).isPresent()) {
-            return false;
-        } else {
-            return true;
-        }
+        return huntingRepository.findById(aLong).isEmpty();
     }
 
     @Override
