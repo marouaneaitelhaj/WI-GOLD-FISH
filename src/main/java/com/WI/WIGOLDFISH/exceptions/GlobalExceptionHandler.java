@@ -16,13 +16,12 @@ public class GlobalExceptionHandler {
         return Map.of("error", e.getMessage());
     }
 
-    @ExceptionHandler(DataIntegrityViolationException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(DataIntegrityViolationException.class)
     public Map<String, String> handle(DataIntegrityViolationException e) {
         return Map.of("error", e.getMessage());
     }
 
-    // handle validation errors
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(org.springframework.validation.BindException.class)
     public Map<String, String> handle(org.springframework.validation.BindException e) {

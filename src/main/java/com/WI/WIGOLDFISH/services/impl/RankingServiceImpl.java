@@ -15,6 +15,7 @@ import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.IntStream;
 
@@ -30,6 +31,13 @@ public class RankingServiceImpl implements RankingService {
     public RankingDtoReq save(RankingDtoReq dtoMini) {
         Competition competition = competitionRepository.findById(dtoMini.getCompetition_id())
                 .orElseThrow(() -> new ResourceNotFound("Competition not found"));
+        if (competition.getDate().isBefore(LocalDate.now())) {
+            throw new ResourceNotFound("Competition is finished");
+        }
+        //System.out.println(rankingRepository.countByCompetition_Code(dtoMini.getCompetition_id()) + " " + competition.getNumberOfParticipants());
+        if (competition.getNumberOfParticipants() == rankingRepository.countByCompetition_Code(dtoMini.getCompetition_id())) {
+            throw new ResourceNotFound("Competition is full");
+        }
         Member member = memberRepository.findById(dtoMini.getMember_id()).orElseThrow(() -> new ResourceNotFound("Member not found"));
         Ranking ranking = modelMapper.map(dtoMini, Ranking.class);
         ranking.setCompetition(new Competition(dtoMini.getCompetition_id()));

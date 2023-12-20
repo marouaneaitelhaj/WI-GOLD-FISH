@@ -9,4 +9,5 @@ import java.util.List;
 
 public interface RankingRepository extends JpaRepository<Ranking, RankingId> {
     List<Ranking> findAllByCompetition_CodeOrderByScoreDesc(String competitionCode);
+    int countByCompetition_Code(String competitionCode);
 }

@@ -40,8 +40,8 @@ public class HuntingServiceImpl implements HuntingService {
         return optionalHunting.map(hunting -> updateExistingHunting(hunting, dtoMini, competition, fish, member)).orElseGet(() -> createNewHunting(dtoMini, competition, fish, member));
     }
 
-    private HuntingDtoReq updateExistingHunting(Hunting hunting, HuntingDtoReq dtoMini,
-                                                Competition competition, Fish fish, Member member) {
+    public HuntingDtoReq updateExistingHunting(Hunting hunting, HuntingDtoReq dtoMini,
+                                               Competition competition, Fish fish, Member member) {
         hunting.setNumberOfFish(hunting.getNumberOfFish() + dtoMini.getNumberOfFish());
         hunting = huntingRepository.save(hunting);
 
@@ -55,21 +55,18 @@ public class HuntingServiceImpl implements HuntingService {
         return huntingDtoReq;
     }
 
-    private HuntingDtoReq createNewHunting(HuntingDtoReq dtoMini, Competition competition,
+    public HuntingDtoReq createNewHunting(HuntingDtoReq dtoMini, Competition competition,
                                            Fish fish, Member member) {
         Hunting hunting = modelMapper.map(dtoMini, Hunting.class);
         hunting.setCompetition(new Competition(dtoMini.getCompetition_id()));
         hunting.setFish(new Fish(dtoMini.getFish_id()));
         hunting.setMember(new Member(dtoMini.getMember_id()));
         hunting = huntingRepository.save(hunting);
-
         HuntingDtoReq huntingDtoReq = modelMapper.map(hunting, HuntingDtoReq.class);
         huntingDtoReq.setCompetition_id(hunting.getCompetition().getCode());
         huntingDtoReq.setFish_id(hunting.getFish().getName());
         huntingDtoReq.setMember_id(hunting.getMember().getNum());
-
         updateRanking(huntingDtoReq, competition, fish, member);
-
         return huntingDtoReq;
     }
 

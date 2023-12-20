@@ -6,12 +6,8 @@ import com.WI.WIGOLDFISH.entities.level.LevelDtoRes;
 import com.WI.WIGOLDFISH.exceptions.ResourceNotFound;
 import com.WI.WIGOLDFISH.repositories.LevelRepository;
 import com.WI.WIGOLDFISH.services.interfaces.LevelService;
-
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -25,17 +21,19 @@ public class LevelServiceImpl implements LevelService {
         levelRepository.findById(dtoMini.getCode()).ifPresent(level -> {
             throw new ResourceNotFound("Level already exists");
         });
-        levelRepository.findFirstByCodeAfter(dtoMini.getCode()).ifPresent(level -> {
+        levelRepository.findFirstByCodeLessThanOrderByCodeDesc(dtoMini.getCode()).ifPresent(level -> {
+            System.out.println(level.getPoints() + " " + level.getDescription());
+            if (level.getPoints() >= dtoMini.getPoints()) {
+                throw new ResourceNotFound("Points must be greater than the " + level.getPoints() + " for the previous level " + level.getCode() + " level" );
+            }
+        });
+        levelRepository.findFirstByCodeGreaterThanOrderByCodeDesc(dtoMini.getCode()).ifPresent(level -> {
+            System.out.println(level.getPoints() + " " + level.getDescription());
            if (level.getPoints() <= dtoMini.getPoints()) {
                throw new ResourceNotFound("Points must be less than the " + level.getPoints() + " for the next level " + level.getCode() + " level");
            }
         });
 
-        levelRepository.findFirstOneByCodeBefore(dtoMini.getCode()).ifPresent(level -> {
-            if (level.getPoints() >= dtoMini.getPoints()) {
-                throw new ResourceNotFound("Points must be greater than the " + level.getPoints() + " for the previous level " + level.getCode() + " level" );
-            }
-        });
         Level level = modelMapper.map(dtoMini, Level.class);
         level = levelRepository.save(level);
         return modelMapper.map(level, LevelDtoReq.class);

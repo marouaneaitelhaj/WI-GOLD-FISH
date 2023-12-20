@@ -27,6 +27,12 @@ public class CompetitionServiceImpl implements CompetitionService {
 
     @Override
     public CompetitionDtoReq save(CompetitionDtoReq dtoMini) {
+        if (dtoMini.getDate().isBefore(LocalDate.now())) {
+            throw new ResourceNotFound("Date must be after today");
+        }
+        if (dtoMini.getStartTime().isAfter(dtoMini.getEndTime()) || dtoMini.getStartTime().isBefore(LocalTime.of(8, 0)) || dtoMini.getStartTime().isAfter(LocalTime.of(20, 0)) || dtoMini.getEndTime().isBefore(LocalTime.of(8, 0)) || dtoMini.getEndTime().isAfter(LocalTime.of(20, 0))) {
+            throw new ResourceNotFound("Start time must be before end time and between 08:00 and 20:00");
+        }
         competitionRepository.findByCode(dtoMini.getCode()).ifPresent(competition -> {
             throw new DuplicatedResource("Competition already exists");
         });

@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface LevelRepository extends JpaRepository<Level, Long> {
-    Optional<Level> findFirstByCodeAfter(Long code);
-    Optional<Level> findFirstOneByCodeBefore(Long code);
+    Optional<Level> findFirstByCodeGreaterThanOrderByCodeDesc(Long code);
+    Optional<Level> findFirstByCodeLessThanOrderByCodeDesc(Long code);
     List<Level> findByOrderByCodeAsc();
 }
