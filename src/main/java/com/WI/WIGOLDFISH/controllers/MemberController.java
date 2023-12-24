@@ -2,6 +2,7 @@ package com.WI.WIGOLDFISH.controllers;
 
 import com.WI.WIGOLDFISH.entities.member.MemberDtoReq;
 import com.WI.WIGOLDFISH.services.impl.MemberServiceImpl;
+import com.WI.WIGOLDFISH.services.interfaces.MemberService;
 import jakarta.validation.Valid;
 
 import lombok.RequiredArgsConstructor;
@@ -19,7 +20,7 @@ import java.util.Map;
 @RequestMapping("/member")
 @RequiredArgsConstructor
 public class MemberController {
-    private final MemberServiceImpl memberServiceImpl;
+    private final MemberService memberServiceImpl;
 
     @PostMapping
     public ResponseEntity<?> createMember(@Valid @RequestBody MemberDtoReq memberDtoReq) {

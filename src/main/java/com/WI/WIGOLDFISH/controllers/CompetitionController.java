@@ -4,6 +4,7 @@ import com.WI.WIGOLDFISH.entities.competition.CompetitionDtoReq;
 import com.WI.WIGOLDFISH.enums.FilterCompetition;
 import com.WI.WIGOLDFISH.services.impl.CompetitionServiceImpl;
 
+import com.WI.WIGOLDFISH.services.interfaces.CompetitionService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +20,7 @@ import java.util.Map;
 @RequestMapping("/competition")
 @RequiredArgsConstructor
 public class CompetitionController {
-    private final CompetitionServiceImpl competitionServiceImpl;
+    private final CompetitionService competitionServiceImpl;
     @PostMapping
     public ResponseEntity<?> createCompetition(@Valid @RequestBody CompetitionDtoReq competitionDtoReq) {
        competitionDtoReq = competitionServiceImpl.save(competitionDtoReq);

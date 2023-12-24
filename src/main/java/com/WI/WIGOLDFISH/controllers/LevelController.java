@@ -2,6 +2,7 @@ package com.WI.WIGOLDFISH.controllers;
 
 import com.WI.WIGOLDFISH.entities.level.LevelDtoReq;
 import com.WI.WIGOLDFISH.services.impl.LevelServiceImpl;
+import com.WI.WIGOLDFISH.services.interfaces.LevelService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +16,7 @@ import java.util.Map;
 @RequestMapping("/level")
 @RequiredArgsConstructor
 public class LevelController {
-    private final LevelServiceImpl levelServiceImpl;
+    private final LevelService levelServiceImpl;
 
     @PostMapping
     public ResponseEntity<?> createLevel(@Valid @RequestBody LevelDtoReq levelDtoReq) {

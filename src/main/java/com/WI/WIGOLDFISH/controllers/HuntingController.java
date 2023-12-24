@@ -2,6 +2,7 @@ package com.WI.WIGOLDFISH.controllers;
 
 import com.WI.WIGOLDFISH.entities.hunting.HuntingDtoReq;
 import com.WI.WIGOLDFISH.services.impl.HuntingServiceImpl;
+import com.WI.WIGOLDFISH.services.interfaces.HuntingService;
 import jakarta.validation.Valid;
 
 import lombok.RequiredArgsConstructor;
@@ -16,7 +17,7 @@ import java.util.Map;
 @RequestMapping("/hunting")
 @RequiredArgsConstructor
 public class HuntingController {
-    private final HuntingServiceImpl huntingServiceImpl;
+    private final HuntingService huntingServiceImpl;
 
     @PostMapping
     public ResponseEntity<?> createHunting(@Valid @RequestBody HuntingDtoReq huntingDtoReq) {

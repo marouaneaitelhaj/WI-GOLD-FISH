@@ -5,6 +5,7 @@ import com.WI.WIGOLDFISH.entities.member.Member;
 import com.WI.WIGOLDFISH.entities.ranking.RankingDtoReq;
 import com.WI.WIGOLDFISH.ids.RankingId;
 import com.WI.WIGOLDFISH.services.impl.RankingServiceImpl;
+import com.WI.WIGOLDFISH.services.interfaces.RankingService;
 import jakarta.validation.Valid;
 
 import lombok.RequiredArgsConstructor;
@@ -22,7 +23,7 @@ import java.util.Map;
 @RequestMapping("/ranking")
 @RequiredArgsConstructor
 public class RankingController {
-    private final RankingServiceImpl rankingServiceImpl;
+    private final RankingService rankingServiceImpl;
 
     @PostMapping
     public ResponseEntity<?> createRanking(@Valid @RequestBody RankingDtoReq rankingDtoReq) {

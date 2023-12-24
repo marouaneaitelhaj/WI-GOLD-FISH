@@ -2,6 +2,7 @@ package com.WI.WIGOLDFISH.controllers;
 
 import com.WI.WIGOLDFISH.entities.fish.FishDtoReq;
 import com.WI.WIGOLDFISH.services.impl.FishServiceImpl;
+import com.WI.WIGOLDFISH.services.interfaces.FishService;
 import jakarta.validation.Valid;
 
 import lombok.RequiredArgsConstructor;
@@ -19,7 +20,7 @@ import java.util.Map;
 @RequestMapping("/fish")
 @RequiredArgsConstructor
 public class FishController {
-    private final FishServiceImpl fishServiceImpl;
+    private final FishService fishServiceImpl;
 
     @PostMapping
     public ResponseEntity<?> createFish(@Valid @RequestBody FishDtoReq fishDtoReq) {
