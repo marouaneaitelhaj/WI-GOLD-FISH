@@ -1,7 +1,7 @@
 package com.WI.WIGOLDFISH.entities.ranking;
 
 import com.WI.WIGOLDFISH.entities.competition.Competition;
-import com.WI.WIGOLDFISH.entities.member.Member;
+import com.WI.WIGOLDFISH.entities.member.DBUser;
 import com.WI.WIGOLDFISH.ids.RankingId;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
@@ -22,7 +22,7 @@ public class  Ranking {
     private int score;
     @ManyToOne
     @MapsId("member")
-    private Member member;
+    private DBUser member;
     @ManyToOne
     @MapsId("competition")
     private Competition competition;

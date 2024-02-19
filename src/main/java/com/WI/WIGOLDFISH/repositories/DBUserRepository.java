@@ -1,13 +1,13 @@
-package org.example.wimelody.repositories;
+package com.WI.WIGOLDFISH.repositories;
 
+
+import com.WI.WIGOLDFISH.entities.member.DBUser;
+import com.WI.WIGOLDFISH.enums.Role;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
-
-import org.example.wimelody.entities.DBUser;
-import org.example.wimelody.enums.Role;
-import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface DBUserRepository extends JpaRepository<DBUser, UUID> {
     Optional<DBUser> findByUsername(String username);

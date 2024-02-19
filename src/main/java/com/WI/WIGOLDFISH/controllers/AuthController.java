@@ -1,15 +1,10 @@
-package org.example.wimelody.controllers;
+package com.WI.WIGOLDFISH.controllers;
 
+import com.WI.WIGOLDFISH.reqrsp.AuthenticationRequest;
+import com.WI.WIGOLDFISH.reqrsp.AuthenticationResponse;
+import com.WI.WIGOLDFISH.reqrsp.RegisterRequest;
+import com.WI.WIGOLDFISH.services.impl.AuthenticationService;
 import lombok.RequiredArgsConstructor;
-import org.example.wimelody.dto.user.UserCredential;
-import org.example.wimelody.dto.user.UserDtoReq;
-import org.example.wimelody.dto.user.UserDtoRsp;
-import org.example.wimelody.entities.DBUser;
-import org.example.wimelody.reqrsp.AuthenticationRequest;
-import org.example.wimelody.reqrsp.AuthenticationResponse;
-import org.example.wimelody.reqrsp.RegisterRequest;
-import org.example.wimelody.services.impl.AuthenticationService;
-import org.example.wimelody.services.inter.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/member")
@@ -37,12 +38,12 @@ public class MemberController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<?> getMember(@PathVariable Long id) {
+    public ResponseEntity<?> getMember(@PathVariable UUID id) {
         return ResponseEntity.ok(memberServiceImpl.findOne(id));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> updateMember(@PathVariable Long id, @Valid @RequestBody MemberDtoReq memberDtoReq) {
+    public ResponseEntity<?> updateMember(@PathVariable UUID id, @Valid @RequestBody MemberDtoReq memberDtoReq) {
         memberDtoReq = memberServiceImpl.update(memberDtoReq, id);
         Map<String, Object> response = new HashMap<>();
         response.put("data", memberDtoReq);
@@ -51,7 +52,7 @@ public class MemberController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteMember(@PathVariable Long id) {
+    public ResponseEntity<?> deleteMember(@PathVariable UUID id) {
         memberServiceImpl.delete(id);
         Map<String, Object> response = new HashMap<>();
         response.put("message", "Member deleted successfully");

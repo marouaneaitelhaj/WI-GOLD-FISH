@@ -2,7 +2,7 @@ package com.WI.WIGOLDFISH.entities.hunting;
 
 import com.WI.WIGOLDFISH.entities.competition.Competition;
 import com.WI.WIGOLDFISH.entities.fish.Fish;
-import com.WI.WIGOLDFISH.entities.member.Member;
+import com.WI.WIGOLDFISH.entities.member.DBUser;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -23,7 +23,7 @@ public class Hunting {
     @ManyToOne
     private Fish fish;
     @ManyToOne
-    private Member member;
+    private DBUser member;
     @ManyToOne
     private Competition competition;
 }

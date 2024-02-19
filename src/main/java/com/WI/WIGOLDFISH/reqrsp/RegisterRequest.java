@@ -1,9 +1,9 @@
-package org.example.wimelody.reqrsp;
+package com.WI.WIGOLDFISH.reqrsp;
 
+import com.WI.WIGOLDFISH.enums.Role;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import org.example.wimelody.enums.Role;
 
 @Builder
 @AllArgsConstructor

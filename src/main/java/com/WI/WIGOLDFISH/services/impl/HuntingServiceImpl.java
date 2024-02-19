@@ -5,7 +5,7 @@ import com.WI.WIGOLDFISH.entities.fish.Fish;
 import com.WI.WIGOLDFISH.entities.hunting.Hunting;
 import com.WI.WIGOLDFISH.entities.hunting.HuntingDtoReq;
 import com.WI.WIGOLDFISH.entities.hunting.HuntingDtoRes;
-import com.WI.WIGOLDFISH.entities.member.Member;
+import com.WI.WIGOLDFISH.entities.member.DBUser;
 import com.WI.WIGOLDFISH.exceptions.ResourceNotFound;
 import com.WI.WIGOLDFISH.ids.RankingId;
 import com.WI.WIGOLDFISH.repositories.*;
@@ -33,7 +33,7 @@ public class HuntingServiceImpl implements HuntingService {
                 .orElseThrow(() -> new ResourceNotFound("Competition not found"));
         Fish fish = fishRepository.findById(dtoMini.getFish_id())
                 .orElseThrow(() -> new ResourceNotFound("Fish not found"));
-        Member member = memberRepository.findById(dtoMini.getMember_id())
+        DBUser member = memberRepository.findById(dtoMini.getMember_id())
                 .orElseThrow(() -> new ResourceNotFound("Member not found"));
         Optional<Hunting> optionalHunting = huntingRepository.findByMemberAndCompetitionAndFish(member, competition, fish);
 
@@ -41,14 +41,14 @@ public class HuntingServiceImpl implements HuntingService {
     }
 
     public HuntingDtoReq updateExistingHunting(Hunting hunting, HuntingDtoReq dtoMini,
-                                               Competition competition, Fish fish, Member member) {
+                                               Competition competition, Fish fish, DBUser member) {
         hunting.setNumberOfFish(hunting.getNumberOfFish() + dtoMini.getNumberOfFish());
         hunting = huntingRepository.save(hunting);
 
         HuntingDtoReq huntingDtoReq = modelMapper.map(hunting, HuntingDtoReq.class);
         huntingDtoReq.setCompetition_id(competition.getCode());
         huntingDtoReq.setFish_id(fish.getName());
-        huntingDtoReq.setMember_id(member.getNum());
+        huntingDtoReq.setMember_id(member.getId());
 
         updateRanking(huntingDtoReq, competition, fish, member);
 
@@ -56,21 +56,21 @@ public class HuntingServiceImpl implements HuntingService {
     }
 
     public HuntingDtoReq createNewHunting(HuntingDtoReq dtoMini, Competition competition,
-                                           Fish fish, Member member) {
+                                           Fish fish, DBUser member) {
         Hunting hunting = modelMapper.map(dtoMini, Hunting.class);
         hunting.setCompetition(new Competition(dtoMini.getCompetition_id()));
         hunting.setFish(new Fish(dtoMini.getFish_id()));
-        hunting.setMember(new Member(dtoMini.getMember_id()));
+        hunting.setMember(new DBUser(dtoMini.getMember_id()));
         hunting = huntingRepository.save(hunting);
         HuntingDtoReq huntingDtoReq = modelMapper.map(hunting, HuntingDtoReq.class);
         huntingDtoReq.setCompetition_id(hunting.getCompetition().getCode());
         huntingDtoReq.setFish_id(hunting.getFish().getName());
-        huntingDtoReq.setMember_id(hunting.getMember().getNum());
+        huntingDtoReq.setMember_id(hunting.getMember().getId());
         updateRanking(huntingDtoReq, competition, fish, member);
         return huntingDtoReq;
     }
 
-    private void updateRanking(HuntingDtoReq huntingDtoReq, Competition competition, Fish fish, Member member) {
+    private void updateRanking(HuntingDtoReq huntingDtoReq, Competition competition, Fish fish, DBUser member) {
         RankingId rankingId = new RankingId();
         rankingId.setCompetition(competition);
         rankingId.setMember(member);
@@ -88,7 +88,7 @@ public class HuntingServiceImpl implements HuntingService {
         Hunting hunting = modelMapper.map(dtoMini, Hunting.class);
         hunting.setCompetition(new Competition(dtoMini.getCompetition_id()));
         hunting.setFish(new Fish(dtoMini.getFish_id()));
-        hunting.setMember(new Member(dtoMini.getMember_id()));
+        hunting.setMember(new DBUser(dtoMini.getMember_id()));
         hunting.setId(aLong);
         hunting = huntingRepository.save(hunting);
         return modelMapper.map(hunting, HuntingDtoReq.class);

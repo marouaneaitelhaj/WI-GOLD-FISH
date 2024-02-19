@@ -1,7 +1,7 @@
 package com.WI.WIGOLDFISH.ids;
 
 import com.WI.WIGOLDFISH.entities.competition.Competition;
-import com.WI.WIGOLDFISH.entities.member.Member;
+import com.WI.WIGOLDFISH.entities.member.DBUser;
 import jakarta.persistence.Embeddable;
 import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
@@ -17,7 +17,7 @@ import java.util.Objects;
 @Embeddable
 public class RankingId implements Serializable {
     @ManyToOne
-    private Member member;
+    private DBUser member;
     @ManyToOne
     private Competition competition;
 

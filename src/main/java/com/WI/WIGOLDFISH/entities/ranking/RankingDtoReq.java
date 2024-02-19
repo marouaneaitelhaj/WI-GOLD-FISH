@@ -7,6 +7,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.UUID;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -17,7 +19,7 @@ public class  RankingDtoReq {
      @NotNull
      private int score;
      @NotNull
-     private Long member_id;
+     private UUID member_id;
      @NotNull
      private String competition_id;
 }

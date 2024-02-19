@@ -1,4 +1,4 @@
-package org.example.wimelody.exceptions;
+package com.WI.WIGOLDFISH.exceptions;
 
 public class NotFoundEx extends RuntimeException {
     public NotFoundEx(String message) {

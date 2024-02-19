@@ -1,10 +1,10 @@
-package org.example.wimelody.dto.user;
+package com.WI.WIGOLDFISH.entities.user;
 
+import com.WI.WIGOLDFISH.enums.Role;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.example.wimelody.enums.Role;
 
 @Data
 @AllArgsConstructor

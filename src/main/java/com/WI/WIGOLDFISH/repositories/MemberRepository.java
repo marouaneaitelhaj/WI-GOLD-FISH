@@ -1,8 +1,10 @@
 package com.WI.WIGOLDFISH.repositories;
 
-import com.WI.WIGOLDFISH.entities.member.Member;
+import com.WI.WIGOLDFISH.entities.member.DBUser;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface MemberRepository extends JpaRepository<Member, Long> {
+import java.util.UUID;
+
+public interface MemberRepository extends JpaRepository<DBUser, UUID> {
 }

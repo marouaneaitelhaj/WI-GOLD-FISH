@@ -1,13 +1,12 @@
-package org.example.wimelody.config;
+package com.WI.WIGOLDFISH.configs;
 
+import com.WI.WIGOLDFISH.exceptions.GlobalExceptionHandler;
 import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import lombok.AllArgsConstructor;
-import org.example.wimelody.exceptions.GlobalExceptionHandler;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 

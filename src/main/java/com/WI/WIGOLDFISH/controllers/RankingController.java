@@ -1,23 +1,19 @@
 package com.WI.WIGOLDFISH.controllers;
 
 import com.WI.WIGOLDFISH.entities.competition.Competition;
-import com.WI.WIGOLDFISH.entities.member.Member;
+import com.WI.WIGOLDFISH.entities.member.DBUser;
 import com.WI.WIGOLDFISH.entities.ranking.RankingDtoReq;
 import com.WI.WIGOLDFISH.ids.RankingId;
-import com.WI.WIGOLDFISH.services.impl.RankingServiceImpl;
 import com.WI.WIGOLDFISH.services.interfaces.RankingService;
 import jakarta.validation.Valid;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/ranking")
@@ -40,10 +36,10 @@ public class RankingController {
     }
 
     @GetMapping("/{member_id}/{competition_id}")
-    public ResponseEntity<?> getRanking(@PathVariable Long member_id, @PathVariable String competition_id) {
+    public ResponseEntity<?> getRanking(@PathVariable UUID member_id, @PathVariable String competition_id) {
         RankingId s = new RankingId();
-        Member m = new Member();
-        m.setNum(member_id);
+        DBUser m = new DBUser();
+        m.setId(member_id);
         Competition c = new Competition();
         c.setCode(competition_id);
         s.setMember(m);
@@ -65,10 +61,10 @@ public class RankingController {
     }
 
     @DeleteMapping("/{member_id}/{competition_id}")
-    public ResponseEntity<?> deleteRanking(@PathVariable Long member_id, @PathVariable String competition_id) {
+    public ResponseEntity<?> deleteRanking(@PathVariable UUID member_id, @PathVariable String competition_id) {
         RankingId s = new RankingId();
-        Member m = new Member();
-        m.setNum(member_id);
+        DBUser m = new DBUser();
+        m.setId(member_id);
         Competition c = new Competition();
         c.setCode(competition_id);
         s.setMember(m);

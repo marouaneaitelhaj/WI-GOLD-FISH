@@ -1,11 +1,10 @@
-package org.example.wimelody.services.inter;
+package com.WI.WIGOLDFISH.services.interfaces;
 
 
-import org.example.wimelody.dto.user.UserDtoRsp;
-import org.example.wimelody.entities.DBUser;
-import org.example.wimelody.reqrsp.AuthenticationRequest;
-import org.example.wimelody.reqrsp.AuthenticationResponse;
-import org.example.wimelody.reqrsp.RegisterRequest;
+import com.WI.WIGOLDFISH.entities.user.UserDtoRsp;
+import com.WI.WIGOLDFISH.reqrsp.AuthenticationRequest;
+import com.WI.WIGOLDFISH.reqrsp.AuthenticationResponse;
+import com.WI.WIGOLDFISH.reqrsp.RegisterRequest;
 
 public interface AuthenticationServiceInterface {
     AuthenticationResponse login(AuthenticationRequest authenticationRequest);

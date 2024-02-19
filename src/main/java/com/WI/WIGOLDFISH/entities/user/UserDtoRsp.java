@@ -1,11 +1,9 @@
-package org.example.wimelody.dto.user;
+package com.WI.WIGOLDFISH.entities.user;
 
+import com.WI.WIGOLDFISH.enums.Role;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.example.wimelody.dto.tier.TierDtoReq;
-import org.example.wimelody.entities.Tier;
-import org.example.wimelody.enums.Role;
 
 import java.util.List;
 import java.util.UUID;
@@ -25,6 +23,5 @@ public class UserDtoRsp {
 
     private Role role;
 
-    private List<TierDtoReq> tiers;
 
 }

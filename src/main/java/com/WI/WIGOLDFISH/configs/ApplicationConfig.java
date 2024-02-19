@@ -1,7 +1,7 @@
-package org.example.wimelody.config;
+package com.WI.WIGOLDFISH.configs;
 
+import com.WI.WIGOLDFISH.repositories.DBUserRepository;
 import lombok.AllArgsConstructor;
-import org.example.wimelody.repositories.DBUserRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;

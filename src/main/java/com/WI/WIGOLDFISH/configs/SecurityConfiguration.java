@@ -1,7 +1,7 @@
-package org.example.wimelody.config;
+package com.WI.WIGOLDFISH.configs;
 
+import com.WI.WIGOLDFISH.enums.Role;
 import lombok.RequiredArgsConstructor;
-import org.example.wimelody.enums.Role;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationProvider;

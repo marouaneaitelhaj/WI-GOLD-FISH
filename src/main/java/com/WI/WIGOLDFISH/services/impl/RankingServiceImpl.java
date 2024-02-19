@@ -1,7 +1,7 @@
 package com.WI.WIGOLDFISH.services.impl;
 
 import com.WI.WIGOLDFISH.entities.competition.Competition;
-import com.WI.WIGOLDFISH.entities.member.Member;
+import com.WI.WIGOLDFISH.entities.member.DBUser;
 import com.WI.WIGOLDFISH.entities.ranking.Ranking;
 import com.WI.WIGOLDFISH.entities.ranking.RankingDtoReq;
 import com.WI.WIGOLDFISH.entities.ranking.RankingDtoRes;
@@ -38,10 +38,10 @@ public class RankingServiceImpl implements RankingService {
         if (competition.getNumberOfParticipants() == rankingRepository.countByCompetition_Code(dtoMini.getCompetition_id())) {
             throw new ResourceNotFound("Competition is full");
         }
-        Member member = memberRepository.findById(dtoMini.getMember_id()).orElseThrow(() -> new ResourceNotFound("Member not found"));
+        DBUser member = memberRepository.findById(dtoMini.getMember_id()).orElseThrow(() -> new ResourceNotFound("Member not found"));
         Ranking ranking = modelMapper.map(dtoMini, Ranking.class);
         ranking.setCompetition(new Competition(dtoMini.getCompetition_id()));
-        ranking.setMember(new Member(dtoMini.getMember_id()));
+        ranking.setMember(new DBUser(dtoMini.getMember_id()));
         RankingId rankingId = new RankingId();
         rankingId.setCompetition(competition);
         rankingId.setMember(member);
@@ -49,7 +49,7 @@ public class RankingServiceImpl implements RankingService {
         ranking = rankingRepository.save(ranking);
         RankingDtoReq rankingDtoReq = modelMapper.map(ranking, RankingDtoReq.class);
         rankingDtoReq.setCompetition_id(ranking.getCompetition().getCode());
-        rankingDtoReq.setMember_id(ranking.getMember().getNum());
+        rankingDtoReq.setMember_id(ranking.getMember().getId());
         return rankingDtoReq;
     }
 
@@ -60,7 +60,7 @@ public class RankingServiceImpl implements RankingService {
         memberRepository.findById(dtoMini.getMember_id()).orElseThrow(() -> new ResourceNotFound("Member not found"));
         Ranking ranking = modelMapper.map(dtoMini, Ranking.class);
         ranking.setCompetition(new Competition(dtoMini.getCompetition_id()));
-        ranking.setMember(new Member(dtoMini.getMember_id()));
+        ranking.setMember(new DBUser(dtoMini.getMember_id()));
         ranking.setRankingId(rankingId);
         ranking = rankingRepository.save(ranking);
         return modelMapper.map(ranking, RankingDtoReq.class);
@@ -79,7 +79,7 @@ public class RankingServiceImpl implements RankingService {
 
     @Override
     public RankingDtoRes findOne(RankingId rankingId) {
-        memberRepository.findById(rankingId.getMember().getNum()).orElseThrow(() -> new ResourceNotFound("Member not found"));
+        memberRepository.findById(rankingId.getMember().getId()).orElseThrow(() -> new ResourceNotFound("Member not found"));
         competitionRepository.findById(rankingId.getCompetition().getCode())
                 .orElseThrow(() -> new ResourceNotFound("Competition not found"));
         Ranking ranking = rankingRepository.findById(rankingId)
