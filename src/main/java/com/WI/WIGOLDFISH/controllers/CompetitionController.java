@@ -2,15 +2,13 @@ package com.WI.WIGOLDFISH.controllers;
 
 import com.WI.WIGOLDFISH.entities.competition.CompetitionDtoReq;
 import com.WI.WIGOLDFISH.enums.FilterCompetition;
-import com.WI.WIGOLDFISH.services.impl.CompetitionServiceImpl;
-
 import com.WI.WIGOLDFISH.services.interfaces.CompetitionService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -22,6 +20,7 @@ import java.util.Map;
 public class CompetitionController {
     private final CompetitionService competitionServiceImpl;
     @PostMapping
+    @PreAuthorize("hasAnyAuthority('JURY', 'MANAGER')")
     public ResponseEntity<?> createCompetition(@Valid @RequestBody CompetitionDtoReq competitionDtoReq) {
        competitionDtoReq = competitionServiceImpl.save(competitionDtoReq);
         Map<String, Object> response = new HashMap<>();
@@ -31,6 +30,7 @@ public class CompetitionController {
     }
 
     @GetMapping
+    @PreAuthorize("hasAnyAuthority('ADHERENT', 'JURY', 'MANAGER')")
     public ResponseEntity<?> getCompetitions(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size, @RequestParam(defaultValue = "all") String filter){
         Pageable pageable = PageRequest.of(page, size);
         FilterCompetition  filterCompetition = FilterCompetition.valueOf(filter.toUpperCase());
@@ -38,11 +38,13 @@ public class CompetitionController {
     }
 
     @GetMapping("/{id}")
+    @PreAuthorize("hasAnyAuthority('ADHERENT', 'JURY', 'MANAGER')")
     public ResponseEntity<?> getCompetition(@PathVariable String id) {
         return ResponseEntity.ok(competitionServiceImpl.findOne(id));
     }
 
     @PutMapping("/{id}")
+    @PreAuthorize("hasAnyAuthority('JURY', 'MANAGER')")
     public ResponseEntity<?> updateCompetition(@PathVariable String id, @Valid @RequestBody CompetitionDtoReq competitionDtoReq) {
         competitionDtoReq = competitionServiceImpl.update(competitionDtoReq, id);
         Map<String, Object> response = new HashMap<>();
@@ -52,6 +54,7 @@ public class CompetitionController {
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasAnyAuthority( 'JURY', 'MANAGER')")
     public ResponseEntity<?> deleteCompetition(@PathVariable String id) {
         competitionServiceImpl.delete(id);
         Map<String, Object> response = new HashMap<>();

@@ -56,7 +56,7 @@ public class AuthenticationService implements AuthenticationServiceInterface {
         DBUser user = DBUser.builder()
                 .username(registerRequest.getUsername())
                 .password(passwordEncoder.encode(registerRequest.getPassword()))
-                .role(Role.FAN)
+                .role(Role.ADHERENT)
                 .build();
         userRepository.save(user);
         var jwtToken = jwtService.generateToken(user);
