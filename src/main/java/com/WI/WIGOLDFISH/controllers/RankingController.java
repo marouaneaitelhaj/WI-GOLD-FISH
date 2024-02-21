@@ -24,6 +24,7 @@ public class RankingController {
     private final RankingService rankingServiceImpl;
 
     @PostMapping
+    @PreAuthorize("hasAnyAuthority('ROLE_MANAGER', 'ROLE_JURY')")
     public ResponseEntity<?> createRanking(@Valid @RequestBody RankingDtoReq rankingDtoReq) {
         rankingDtoReq = rankingServiceImpl.save(rankingDtoReq);
         Map<String, Object> response = new HashMap<>();
@@ -33,11 +34,13 @@ public class RankingController {
     }
 
     @GetMapping
+    @PreAuthorize("hasAnyAuthority('ROLE_MANAGER', 'ROLE_JURY','ROLE_ADHERENT')")
     public ResponseEntity<?> getRankings() {
         return ResponseEntity.ok(rankingServiceImpl.findAll());
     }
 
     @GetMapping("/{member_id}/{competition_id}")
+    @PreAuthorize("hasAnyAuthority('ROLE_MANAGER', 'ROLE_JURY','ROLE_ADHERENT')")
     public ResponseEntity<?> getRanking(@PathVariable UUID member_id, @PathVariable String competition_id) {
         RankingId s = new RankingId();
         DBUser m = new DBUser();
@@ -49,11 +52,13 @@ public class RankingController {
         return ResponseEntity.ok(rankingServiceImpl.findOne(s));
     }
     @GetMapping("/competition/{competitionCode}")
+    @PreAuthorize("hasAnyAuthority('ROLE_MANAGER', 'ROLE_JURY','ROLE_ADHERENT')")
     public ResponseEntity<?> findAllByCompetition_CodeOrderByScoreDesc(@PathVariable String competitionCode) {
         return ResponseEntity.ok(rankingServiceImpl.findAllByCompetition_CodeOrderByScoreDesc(competitionCode));
     }
 
     @PutMapping("/{id}")
+    @PreAuthorize("hasAnyAuthority('ROLE_MANAGER', 'ROLE_JURY')")
     public ResponseEntity<?> updateRanking(@PathVariable RankingId s, @Valid @RequestBody RankingDtoReq rankingDtoReq) {
         rankingDtoReq = rankingServiceImpl.update(rankingDtoReq, s);
         Map<String, Object> response = new HashMap<>();
@@ -63,6 +68,7 @@ public class RankingController {
     }
 
     @DeleteMapping("/{member_id}/{competition_id}")
+    @PreAuthorize("hasAnyAuthority('ROLE_MANAGER', 'ROLE_JURY')")
     public ResponseEntity<?> deleteRanking(@PathVariable UUID member_id, @PathVariable String competition_id) {
         RankingId s = new RankingId();
         DBUser m = new DBUser();

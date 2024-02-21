@@ -21,7 +21,7 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/member")
 @RequiredArgsConstructor
-@PreAuthorize("hasAnyAuthority('JURY', 'MANAGER')")
+@PreAuthorize("hasAnyAuthority('MANAGER')")
 public class MemberController {
     private final MemberService memberServiceImpl;
 

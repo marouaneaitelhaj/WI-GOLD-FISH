@@ -20,11 +20,11 @@ import java.util.Map;
 @RestController
 @RequestMapping("/fish")
 @RequiredArgsConstructor
-@PreAuthorize("hasAnyAuthority('JURY', 'MANAGER')")
 public class FishController {
     private final FishService fishServiceImpl;
 
     @PostMapping
+    @PreAuthorize("hasAnyAuthority('JURY', 'MANAGER')")
     public ResponseEntity<?> createFish(@Valid @RequestBody FishDtoReq fishDtoReq) {
         fishDtoReq = fishServiceImpl.save(fishDtoReq);
         Map<String, Object> response = new HashMap<>();
@@ -34,16 +34,19 @@ public class FishController {
     }
 
     @GetMapping
+    @PreAuthorize("hasAnyAuthority('ROLE_MANAGER', 'ROLE_JURY','ROLE_ADHERENT')")
     public ResponseEntity<?> getFishs() {
         return ResponseEntity.ok(fishServiceImpl.findAll());
     }
 
     @GetMapping("/{id}")
+    @PreAuthorize("hasAnyAuthority('ROLE_MANAGER', 'ROLE_JURY','ROLE_ADHERENT')")
     public ResponseEntity<?> getFish(@PathVariable String id) {
         return ResponseEntity.ok(fishServiceImpl.findOne(id));
     }
 
     @PutMapping("/{id}")
+    @PreAuthorize("hasAnyAuthority('JURY', 'MANAGER')")
     public ResponseEntity<?> updateFish(@PathVariable String id, @Valid @RequestBody FishDtoReq fishDtoReq) {
         fishDtoReq = fishServiceImpl.update(fishDtoReq, id);
         Map<String, Object> response = new HashMap<>();
@@ -53,6 +56,7 @@ public class FishController {
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasAnyAuthority('JURY', 'MANAGER')")
     public ResponseEntity<?> deleteFish(@PathVariable String id) {
         fishServiceImpl.delete(id);
         Map<String, Object> response = new HashMap<>();

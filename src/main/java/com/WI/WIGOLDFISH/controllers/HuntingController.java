@@ -17,11 +17,11 @@ import java.util.Map;
 @RestController
 @RequestMapping("/hunting")
 @RequiredArgsConstructor
-@PreAuthorize("hasAnyAuthority('JURY', 'MANAGER')")
 public class HuntingController {
     private final HuntingService huntingServiceImpl;
 
     @PostMapping
+    @PreAuthorize("hasAnyAuthority('ROLE_MANAGER', 'ROLE_JURY')")
     public ResponseEntity<?> createHunting(@Valid @RequestBody HuntingDtoReq huntingDtoReq) {
         huntingDtoReq = huntingServiceImpl.save(huntingDtoReq);
         Map<String, Object> response = new HashMap<>();
@@ -31,16 +31,19 @@ public class HuntingController {
     }
 
     @GetMapping
+    @PreAuthorize("hasAnyAuthority('ROLE_MANAGER', 'ROLE_JURY','ROLE_ADHERENT')")
     public ResponseEntity<?> getHuntings() {
         return ResponseEntity.ok(huntingServiceImpl.findAll());
     }
 
     @GetMapping("/{id}")
+    @PreAuthorize("hasAnyAuthority('ROLE_MANAGER', 'ROLE_JURY','ROLE_ADHERENT')")
     public ResponseEntity<?> getHunting(@PathVariable Long long1) {
         return ResponseEntity.ok(huntingServiceImpl.findOne(long1));
     }
 
     @PutMapping("/{id}")
+    @PreAuthorize("hasAnyAuthority('ROLE_MANAGER', 'ROLE_JURY')")
     public ResponseEntity<?> updateHunting(@PathVariable Long s, @Valid @RequestBody HuntingDtoReq huntingDtoReq) {
         huntingDtoReq = huntingServiceImpl.update(huntingDtoReq, s);
         Map<String, Object> response = new HashMap<>();

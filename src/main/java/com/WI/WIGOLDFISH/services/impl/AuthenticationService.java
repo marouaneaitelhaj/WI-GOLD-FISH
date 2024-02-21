@@ -67,7 +67,6 @@ public class AuthenticationService implements AuthenticationServiceInterface {
     @Override
     public UserDtoRsp getUser(String name) {
         DBUser user = userRepository.findByUsername(name).orElseThrow(() -> new NotFoundEx("User not found"));
-        System.out.println(user.getAuthorities() + " hada rah role");
         return modelMapper.map(user, UserDtoRsp.class);
     }
 }

@@ -16,11 +16,11 @@ import java.util.Map;
 @RestController
 @RequestMapping("/level")
 @RequiredArgsConstructor
-@PreAuthorize("hasAnyAuthority('JURY', 'MANAGER')")
 public class LevelController {
     private final LevelService levelServiceImpl;
 
     @PostMapping
+    @PreAuthorize("hasAnyAuthority('ROLE_MANAGER', 'ROLE_JURY')")
     public ResponseEntity<?> createLevel(@Valid @RequestBody LevelDtoReq levelDtoReq) {
         levelDtoReq = levelServiceImpl.save(levelDtoReq);
         Map<String, Object> response = new HashMap<>();
@@ -30,16 +30,19 @@ public class LevelController {
     }
 
     @GetMapping
+    @PreAuthorize("hasAnyAuthority('ROLE_MANAGER', 'ROLE_JURY','ROLE_ADHERENT')")
     public ResponseEntity<?> getLevels() {
         return ResponseEntity.ok(levelServiceImpl.findAll());
     }
 
     @GetMapping("/{id}")
+    @PreAuthorize("hasAnyAuthority('ROLE_MANAGER', 'ROLE_JURY','ROLE_ADHERENT')")
     public ResponseEntity<?> getLevel(@PathVariable Long id) {
         return ResponseEntity.ok(levelServiceImpl.findOne(id));
     }
 
     @PutMapping("/{id}")
+    @PreAuthorize("hasAnyAuthority('ROLE_MANAGER', 'ROLE_JURY')")
     public ResponseEntity<?> updateLevel(@PathVariable Long id, @Valid @RequestBody LevelDtoReq levelDtoReq) {
         levelDtoReq = levelServiceImpl.update(levelDtoReq, id);
         Map<String, Object> response = new HashMap<>();
@@ -49,6 +52,7 @@ public class LevelController {
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasAnyAuthority('ROLE_MANAGER', 'ROLE_JURY')")
     public ResponseEntity<?> deleteLevel(@PathVariable Long id) {
         levelServiceImpl.delete(id);
         Map<String, Object> response = new HashMap<>();
