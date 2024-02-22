@@ -6,7 +6,6 @@ import com.WI.WIGOLDFISH.entities.member.MemberDtoRes;
 import com.WI.WIGOLDFISH.exceptions.ResourceNotFound;
 import com.WI.WIGOLDFISH.repositories.MemberRepository;
 import com.WI.WIGOLDFISH.services.interfaces.MemberService;
-
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
@@ -29,11 +28,10 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     public MemberDtoReq update(MemberDtoReq dtoMini, UUID aLong) {
-        memberRepository.findById(aLong).orElseThrow(() -> new ResourceNotFound("Member not found"));
-        DBUser member = modelMapper.map(dtoMini, DBUser.class);
-        member.setId(aLong);
-        member = memberRepository.save(member);
-        return modelMapper.map(member, MemberDtoReq.class);
+        DBUser user = memberRepository.findById(aLong).orElseThrow(() -> new ResourceNotFound("Member not found"));
+        user.setRole(dtoMini.getRole());
+        user = memberRepository.save(user);
+        return modelMapper.map(user, MemberDtoReq.class);
     }
 
     @Override

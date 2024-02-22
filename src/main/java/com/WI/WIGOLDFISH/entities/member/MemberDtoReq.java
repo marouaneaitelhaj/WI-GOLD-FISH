@@ -1,6 +1,7 @@
 package com.WI.WIGOLDFISH.entities.member;
 
 import com.WI.WIGOLDFISH.enums.IndentityDocumentType;
+import com.WI.WIGOLDFISH.enums.Role;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Null;
 import lombok.AllArgsConstructor;
@@ -27,4 +28,6 @@ public class    MemberDtoReq {
     private IndentityDocumentType indentityDocumentType;
     @NotNull
     private String indentityNumber;
+    @NotNull
+    private Role role;
 }

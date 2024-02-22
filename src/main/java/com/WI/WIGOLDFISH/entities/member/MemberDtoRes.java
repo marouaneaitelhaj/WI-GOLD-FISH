@@ -10,12 +10,13 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.UUID;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class MemberDtoRes {
-    private Long num;
+    private UUID id;
     private String name;
     private String familyName;
     private String username;
