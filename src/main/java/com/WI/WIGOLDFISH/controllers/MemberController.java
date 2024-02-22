@@ -21,7 +21,6 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/member")
 @RequiredArgsConstructor
-@PreAuthorize("hasAnyAuthority('MANAGER')")
 public class MemberController {
     private final MemberService memberServiceImpl;
 
@@ -35,6 +34,7 @@ public class MemberController {
     }
 
     @GetMapping
+    @PreAuthorize("hasAnyAuthority('ROLE_MANAGER')")
     public ResponseEntity<?> getMembers() {
         return ResponseEntity.ok(memberServiceImpl.findAll());
     }

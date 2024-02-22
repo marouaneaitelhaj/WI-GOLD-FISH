@@ -3,6 +3,7 @@ package com.WI.WIGOLDFISH.entities.member;
 import com.WI.WIGOLDFISH.entities.hunting.HuntingDtoReq;
 import com.WI.WIGOLDFISH.entities.ranking.RankingDtoReq;
 import com.WI.WIGOLDFISH.enums.IndentityDocumentType;
+import com.WI.WIGOLDFISH.enums.Role;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -17,8 +18,10 @@ public class MemberDtoRes {
     private Long num;
     private String name;
     private String familyName;
+    private String username;
     private LocalDate accessionDate;
     private String nationality;
+    private Role role;
     private IndentityDocumentType indentityDocumentType;
     private String indentityNumber;
     private List<RankingDtoReq> rankings;

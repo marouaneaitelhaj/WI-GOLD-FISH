@@ -19,6 +19,8 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+
 @AllArgsConstructor
 @Data
 @Service
@@ -53,11 +55,10 @@ public class AuthenticationService implements AuthenticationServiceInterface {
 
     @Override
     public AuthenticationResponse register(RegisterRequest registerRequest) {
-        DBUser user = DBUser.builder()
-                .username(registerRequest.getUsername())
-                .password(passwordEncoder.encode(registerRequest.getPassword()))
-                .role(Role.ADHERENT)
-                .build();
+        DBUser user = modelMapper.map(registerRequest, DBUser.class);
+        user.setRole(Role.ADHERENT);
+        user.setAccessionDate(LocalDate.now());
+        user.setPassword(passwordEncoder.encode(registerRequest.getPassword()));
         userRepository.save(user);
         var jwtToken = jwtService.generateToken(user);
         return AuthenticationResponse.builder()

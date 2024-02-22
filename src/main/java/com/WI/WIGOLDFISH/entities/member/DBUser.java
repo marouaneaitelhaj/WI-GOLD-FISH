@@ -36,6 +36,7 @@ public class DBUser implements UserDetails {
     private String nationality;
     @Enumerated(EnumType.STRING)
     private Role role;
+    @Enumerated(EnumType.STRING)
     private IndentityDocumentType indentityDocumentType;
     private String indentityNumber;
     @OneToMany(mappedBy = "member")

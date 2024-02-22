@@ -55,7 +55,6 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     public List<MemberDtoRes> findAll() {
-        List<MemberDtoRes> memberDtoResList = memberRepository.findAll().stream().map(member -> modelMapper.map(member, MemberDtoRes.class)).toList();
-        return memberDtoResList;
+        return memberRepository.findAll().stream().map(member -> modelMapper.map(member, MemberDtoRes.class)).toList();
     }
 }
