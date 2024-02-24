@@ -56,7 +56,7 @@ public class AuthenticationService implements AuthenticationServiceInterface {
     @Override
     public AuthenticationResponse register(RegisterRequest registerRequest) {
         DBUser user = modelMapper.map(registerRequest, DBUser.class);
-        user.setRole(Role.ADHERENT);
+        user.setRole(Role.NONE);
         user.setAccessionDate(LocalDate.now());
         user.setPassword(passwordEncoder.encode(registerRequest.getPassword()));
         userRepository.save(user);

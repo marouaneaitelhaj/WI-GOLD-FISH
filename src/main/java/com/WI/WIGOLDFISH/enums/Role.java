@@ -11,6 +11,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @Getter
 public enum Role {
+    NONE,
     ADHERENT,
     MANAGER,
     JURY;
